@@ -1,0 +1,112 @@
+<!--
+Realizado por: Yasmin Vicuña Rondon
+Fecha: 23-11-2020
+Titulo: Panel de Control: APICORE
+ -->
+
+
+<div class="animated fadeIn">
+    <section class="esb">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                        <a name="cuerpo"></a>
+                        <div class="text-value">
+                            <h3>Modelo WVS ( Servidor de Versiones WEB ) </h3>
+                            <hr>
+                        </div>
+
+
+
+
+                        <div class="container">
+
+
+
+
+                            <mat-selection-list #documento>
+                                <mat-list style="border-bottom: 1px rgba(224, 223, 223, 0.945) solid;">
+                                    <!-- <div class="row">
+                                                    <div class="col-md-1" [ngStyle]="{'display':estilocheck}">
+                                                        <mat-checkbox [checked]="allComplete" color="primary"
+                                                            [indeterminate]="someComplete()"
+                                                            (change)="setAll($event.checked)"
+                                                            class="example-margin texto-lista" id="check">
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button mat-icon-button aria-label="Example "
+                                                            (click)="open(content, 0)" id="clasificar">
+                                                            <mat-icon>assignment_turned_in</mat-icon>
+                                                        </button>
+                                                    </div>
+
+                                                </div> -->
+
+                                </mat-list>
+                            </mat-selection-list>
+
+                            <mat-selection-list #lstDocumentos>
+                                <mat-list *ngFor="let e of lstApp; let i=index "
+                                    style="border-bottom: 1px rgba(224, 223, 223, 0.945) solid;">
+                                    <div class="row">
+
+                                        <div class="col-md-3 texto-lista" #tooltip="matTooltip"
+                                            matTooltip="  {{ e.observacion | uppercase }}">
+                                            {{ e.fecha | date:"dd-MM-yyyy" }} | {{ e.nombre }}
+                                        </div>
+                                        <!--  -->
+                                        <div class="col-md-2 texto-detalle">
+                                            {{ e.sistema | uppercase }} | V{{ e.version | uppercase }}
+                                        </div>
+                                        <div class="col-md-4 texto-detalle">
+                                            {{ e.repositorio }}{{ e.puntoMontaje }}
+                                        </div>
+                                        <div class="col-md-1 texto-detalle">
+                                            {{ e.lenguaje }}
+                                        </div>
+
+
+                                        <div class="col-md-2 text-right">
+
+                                            <button mat-icon-button aria-label="Editar"
+                                                (click)="clonar( e.identificador )" #tooltip="matTooltip"
+                                                matTooltip="Clonar">
+                                                <mat-icon class="texto-gray">get_app</mat-icon>
+                                            </button>
+                                            <!-- <button mat-icon-button aria-label="Actualizar"
+                                                (click)="actualizar(adjuntar, e.identificador)"  #tooltip="matTooltip" matTooltip="Actualizar">
+                                                <mat-icon class="texto-gray">refresh</mat-icon>
+                                            </button>
+                                            <button mat-icon-button aria-label="Publicado"  #tooltip="matTooltip" matTooltip="Publicado">
+                                                <mat-icon class="texto-gray">public</mat-icon>
+                                            </button> -->
+
+                                        </div>
+                                    </div>
+                                </mat-list>
+                            </mat-selection-list>
+
+
+                            <!-- <mat-paginator [length]="longitud" (page)="pageChangeEvent($event)"
+                                        [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                                        (page)="pageEvent = $event" aria-label="Seleccionar">
+                                    </mat-paginator> -->
+
+
+
+
+
+
+                            <br><br>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>

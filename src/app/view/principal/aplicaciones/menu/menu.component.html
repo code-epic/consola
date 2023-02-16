@@ -1,0 +1,458 @@
+<div class="animated fadeIn">
+    <section class="esb">
+        <form role="form" id="Menu">            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                            <a name="cuerpo"></a>
+                            <div class="text-value"><h3 >Modelo WMS ( Servidor de Menus WEB ) </h3>
+                            <hr></div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+
+
+                                    <div class="card-deck">
+        
+                                        <div class="card">
+                                        <img class="card-img-top" src="../../assets/img/brand/10101.jpeg" style="height: 160px;" alt="Card image cap">
+                                        <div class="card-body">                                            
+                                            <div class="row">   
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Seleccionar Aplicaci&oacute;n</label>
+                                                        <select id="cmbAplicacion" class="form-control selected"
+                                                            [ngModelOptions]="{standalone: true}" [(ngModel)]="aplicacion"  value ="{{aplicacion}}"
+                                                            style="display: flex; justify-content: center;" (change)="selModulo()">
+                                                            <option value="0">SELECCIONE</option>
+                                                            <option  *ngFor="let xapp of lstApps" value="{{xapp.identificador}}">{{xapp.nombre}} : {{xapp.version}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>  
+                                        
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Modulo</label>
+                                                        <div class="ng-autocomplete" > 
+                                                            <ng-autocomplete 
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [name]="xmodulo"
+                                                                [(ngModel)]="xmodulo"
+                                                                [data]="dataModulo"
+                                                                [searchKeyword]="keyword"
+                                                                (selected)='selectEventModulo($event)'
+                                                                (inputFocused)='onFocusedModulo($event)'
+                                                                [itemTemplate]="itemTemplate">    
+                                                            </ng-autocomplete>
+                                                            
+                                                            <ng-template #itemTemplate let-item >
+                                                                
+                                                                <a [innerHTML]="item.name"></a>
+                                                            </ng-template>
+                                                            
+                                                            <!-- 
+                                                               [notFoundTemplate]="notFoundTemplate"
+                                                                <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                            </ng-template> -->
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>   
+                                                
+                                                
+                                                
+                                            </div>
+                                          
+
+                                            <div class="row">
+                                                
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Menu</label>
+                                                            <div class="ng-autocomplete" > 
+                                                                <ng-autocomplete 
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [name]="menu"
+                                                                    [(ngModel)]="menu"
+                                                                    [data]="datamenu"
+                                                                    [searchKeyword]="keyword"
+                                                                    (inputFocused)='onFocusedMenu($event)'
+                                                                    (selected)='selectEventMenu($event)'
+                                                                    [itemTemplate]="itemTemplate">     
+                                                                </ng-autocomplete>
+                                                                
+                                                                <ng-template #itemTemplate let-item>
+                                                                <a [innerHTML]="item.name"></a>
+                                                                </ng-template>
+                                                                
+                                                                <!--
+                                                                    [notFoundTemplate]="notFoundTemplate" 
+                                                                    <ng-template #notFoundTemplate let-notFound>
+                                                                <div [innerHTML]="notFound"></div>
+                                                                </ng-template> -->
+                                                            </div>
+                                                        
+                                                        
+                                                        </div>
+                                                    </div>
+                                            </div>
+
+                                            <br>
+                                        </div>
+                                        <div class="card-footer ">
+                                            <small class="text-muted">
+                                                <button type="button" class="btn btn-warning float-right" 
+                                                (click)='OMenuAccion()'> Procesar <i class="icon-shuffle"></i></button>
+                                            </small>
+                                        </div>
+                                        </div>
+                                    </div>
+
+    `
+
+
+                                </div>
+
+
+
+
+                                <div class="col-md-8">
+                                    <div class="callout callout-success">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Nombre </label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtUrl"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xnombre"  value ="{{xnombre}}" >
+                                                    </div>
+                                                
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label>Direcci&oacute;n URL </label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtUrl"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xurl"  value ="{{xurl}}" >
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Icono</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtIcono"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xicono"  value ="{{xicono}}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Color</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtColor"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xcolor"  value ="{{xcolor}}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Clase Css</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtClass"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xcss"  value ="{{xcss}}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <label>Codigo JavaScript</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtJs"class="form-control"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xjs"  value ="{{xjs}}" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Estatus</label>
+                                                    <div class="input-group">
+                                                        <select id="booEstatus" class="form-control selected"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xestatus"  value ="{{xestatus}}">
+                                                            <option value=1>ACTIVO</option>
+                                                            <option value=0>INACTIVO</option>
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                                <button type="button" class="btn {{colormenu}}"                                                                   
+                                                                [disabled]="!bGuardar"    
+                                                                (click)="GuardarMenu()"
+                                                                    
+                                                                    >
+                                                                    <i class="icon-plus"></i>
+                                                                  
+                                                                </button>
+                                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="callout callout-warning">                                        
+                                        <nav ngbNav #nav="ngbNav" class="nav-tabs">
+                                            <ng-container ngbNavItem>
+                                                <a ngbNavLink>Acciones</a>
+                                                <ng-template ngbNavContent>
+                                                    <div class="btn-group float-right p-0" dropdown>
+                                                        <button dropdownToggle type="button" 
+                                                            class="btn btn-transparent p-0"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)='modalAccion(frmAccion)'>
+                                                            <i class='icon-note' style='color:#770808; font-size: 20px;' ></i>
+                                                        </button>
+                                                    </div> 
+                                                    <h6>Listado General</h6>
+                                                    <hr>
+                                                    <ag-grid-angular
+                                                        style="width: 100%; height: 200px;"
+                                                        class="ag-theme-blue" [rowData]="rowDataAcc" [columnDefs]="columnDefsAcc"
+                                                        [pagination]="true"  [paginationPageSize]="paginationPageSize"  >
+                                                    </ag-grid-angular>
+
+                                                </ng-template>
+                                            </ng-container>
+                                            <ng-container ngbNavItem>
+                                                <a ngbNavLink>Sub Menu</a>
+                                                <ng-template ngbNavContent>
+                                                    <div class="btn-group float-right p-0" dropdown>
+                                                        <button dropdownToggle type="button" 
+                                                            class="btn btn-transparent p-0"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)='modalAccion(frmSubMenu)'>
+                                                            <i class='icon-note' style='color:#770808; font-size: 20px;' ></i>
+                                                        </button>
+                                                    </div> 
+                                                    <h6>Listado SubMenu</h6>
+                                                    <hr>
+                                                    <ag-grid-angular
+                                                    style="width: 100%; height: 200px;"
+                                                    class="ag-theme-blue" [rowData]="rowDataSub" [columnDefs]="columnDefsSub"
+                                                    [pagination]="true"  [paginationPageSize]="paginationPageSize"  >
+                                                </ag-grid-angular>
+
+                                                </ng-template>
+                                            </ng-container>
+                                        </nav>                            
+                                        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+
+
+
+
+
+
+
+<ng-template #frmAccion let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Crear Acciones</h6>
+    </div>
+    <div class="modal-body">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Metodo</label>
+                        <select id="cmbMetodo" class="form-control selected"  
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="metodo"  value ="{{metodo}}">
+                            <option value="0" selected>SELECCIONE</option>
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="OPTIONS">OPTIONS</option>
+                        </select>
+                    </div>
+                </div>
+                
+            
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <div class="input-group">
+                            <input type="text" id="txtNombre"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="nombre"  value ="{{nombre}}" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Funci&oacute;n</label>
+                        <div class="input-group">
+                            <input type="text" id="txtFuncion"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="funcion"  value ="{{funcion}}" >
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            <div class="row">
+            
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>EndPoint</label>
+                        <div class="input-group">
+                            <input type="text" id="txtEndPoint"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="endpoint"  value ="{{endpoint}}" >
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Directiviva</label>
+                        <div class="input-group">
+                            <textarea class="form-control" rows="3" id="txtDirectiva" placeholder="Enter ..." 
+                                [ngModelOptions]="{standalone: true}" [(ngModel)]="directiva"  value ="{{directiva}}">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary float-right" 
+            (click)="modal.dismiss('Cross click')">Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="modal.dismiss('Cross click');GuardarAccion()"> 
+            Agregar <i class="icon-shuffle"></i>
+        </button>
+    </div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<ng-template #frmSubMenu let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Crear SubMenus</h6>
+        
+    </div>
+    <div class="modal-body">
+        <form #form="ngForm">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre </label>
+                        <div class="input-group">
+                            <input type="text" id="txtSubNombre"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="subnombre"  value ="{{subnombre}}" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label>Direcci&oacute;n URL </label>
+                        <div class="input-group">
+                            <input type="text" id="txtSubUrl"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="suburl"  value ="{{suburl}}" >
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">                                            
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Codigo JavaScript</label>
+                        <div class="input-group">
+                            <input type="text" id="txtSubJs"class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="subjs"  value ="{{subjs}}" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Clase Css</label>
+                        <div class="input-group">
+                            <input type="text" id="txtSubClass" class="form-control"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="subclass"  value ="{{subclass}}" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Estatus</label>
+                        <div class="input-group">
+                            <select id="booSubEstatus" class="form-control selected"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="subestatus"  value ="{{subestatus}}">
+                                <option value=1>ACTIVO</option>
+                                <option value=0>INACTIVO</option>
+                            </select>
+                            <div class="input-group-append">
+                            
+                                    <button type="button" class="btn btn-success" (click)="SubGuardar()">
+                                        <i class="icon-tag"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary float-right" 
+            (click)="modal.dismiss('Cross click')">Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="modal.dismiss('Cross click')"> 
+            Agregar <i class="icon-shuffle"></i>
+        </button>
+    </div>
+</ng-template>
+
+
+

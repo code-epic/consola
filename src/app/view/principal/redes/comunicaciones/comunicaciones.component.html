@@ -1,0 +1,163 @@
+<!-- <div style="position: relative"> -->
+    <!-- the position of the parent container must be set to relative -->
+    <!-- It is really important to set loaderId for non-master loader -->
+    
+<!-- </div> -->
+
+<div class="animated fadeIn" >
+  
+
+    <section class="esb">
+        <form role="form" id="Comunicaciones">
+            
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                              
+                            <h3>Servidores</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card-body" style="margin: 0px;padding:0px;">
+                                        <div class="chart-wrapper">
+                                          <canvas baseChart class="chart"
+                                          [datasets]="pieChartData"
+                                          [labels]="pieChartLabels"
+                                          [chartType]="pieChartType"
+                                          (chartHover)="chartHovered($event)"
+                                          (chartClick)="chartClicked($event)"></canvas>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="callout callout-success">
+                                        <div class="row">
+                                            
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Dirección Host/IP </label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtHost" class="form-control" 
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="host"  value ="{{host}}">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" (click)="ScanRed()"><i style='color:#1D9D36;' 
+                                                                class="fa fa-desktop"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>MAC Address</label>
+                                                    <input type="text" id="txtMac" class="form-control" 
+                                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="mac"  value ="{{mac}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Descripción</label>
+                                                    <input type="text" id="txtDescripcion" class="form-control" 
+                                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="descripcion"  value ="{{descripcion}}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Identificador</label>
+                                                    <input type="text" id="PK_txtId"class="form-control"
+                                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="identificador"  value ="{{identificador}}" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Tipo de dispositivo</label>
+                                                    <div class="input-group">
+                                                        <select id="txtDispositivo" class="form-control selected"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="dispositivo"  value ="{{dispositivo}}">
+                                                            <option value=0>-----------</option>
+                                                            <option *ngFor="let mdl of dispositivos" value="{{mdl.id}}" >{{ mdl.descripcion }}</option> 
+                                                        </select>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Estatus</label>
+                                                    <div class="input-group">
+                                                        <select id="booEstatus" class="form-control selected"
+                                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="estatus"  value ="{{estatus}}">
+                                                            <option value=1>ACTIVO</option>
+                                                            <option value=0>INACTIVO</option>
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                         
+                                                                <button type="button" class="btn btn-success" (click)="Guardar()">
+                                                                    <i class="icon-note"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+
+
+
+
+                                            
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        
+        </form>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <ngx-ui-loader [loaderId]="'loader-02'"></ngx-ui-loader>
+                        <div class="btn-group float-right p-0" dropdown>
+                            <button dropdownToggle type="button" 
+                                class="btn btn-transparent dropdown-toggle float-right p-0"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class='icon-settings' style='color:#770808; font-size: 20px;' ></i>
+                               <span class="caret"></span>
+                            </button>
+                            <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" style="left: auto; right: 0px;" role="menu">
+                                <li role="menuitem" *ngFor="let mdl of dispositivos">
+                                  <a class="dropdown-item" data-name="{{mdl.id}}" (click)='CargarConexiones($event)'>{{ mdl.descripcion }}</a>
+                                </li>
+                            </ul>
+                        </div> 
+                        <h6>Listado</h6>
+                        <hr>
+                        <ag-grid-angular
+                            style="width: 100%; height: 250px;"
+                            class="ag-theme-blue"
+                            [rowData]="rowData"
+                            [columnDefs]="columnDefs"
+                            [pagination]="true"
+                            [paginationPageSize]="paginationPageSize">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>

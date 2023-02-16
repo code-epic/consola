@@ -1,0 +1,70 @@
+<br>
+<!-- <form #rolPrivilegios="ngForm" (ngSubmit)="onClickSubmit(rolPrivilegios)"> -->
+<form  class="normal-form">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Aplicacion</label>
+                <select id="cmbAplicacion" class="form-control selected" [disabled]="isDisabledInput"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="aplicacion"  value ="{{aplicacion}}"
+                    style="display: flex; justify-content: center;" (change)="selModulo()">
+                    <option value="0">SELECCIONE</option>
+                    <option *ngFor="let xapp of lstApps" value="{{ xapp.id }}">{{xapp.nomb}} : {{xapp.vers}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Modulo</label>
+                    <select id="cmbModulo" class="form-control selected" [disabled]="isDisabledInput"
+                        [ngModelOptions]="{standalone: true}"
+                        [name]="xmodulo"
+                        (change)="consultarRed()"
+                        [(ngModel)]="xmodulo">   
+                    <option value="0">SELECCIONE</option>
+                    <option  *ngFor="let item of dataModulo" value="{{item.id}}">{{item.name}}</option> 
+                    </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" placeholder="Enter ..."  
+                [ngModelOptions]="{standalone: true}" [disabled]="isDisabledInput"  [(ngModel)]="nombre"  value ="{{nombre}}">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <label>Descripcion</label>
+            <div class="input-group mb-3">
+                
+                <input style="font-size:14px;" type="text" 
+                    class="form-control" [ngModelOptions]="{standalone: true}" 
+                    [(ngModel)]="descripcion" [disabled]="isDisabledInput"  value ="{{descripcion}}" >
+                <div class="input-group-prepend">
+                </div>
+                <div *ngIf="!isButtonVisibleSalvar">
+                    <button type="button" mat-raised-button color="primary" 
+                        [disabled]="isBtnSalvar"
+                        (click)="salvar()">
+                        <i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Salvar
+                    </button>
+                </div>
+                <div *ngIf="isButtonVisibleUpdate">
+                    <button type="button" mat-raised-button color="accent" 
+                    [disabled]="isBtnSalvar"
+                    (click)="modificar()">
+                    <i class="fa fa-edit" aria-hidden="true"></i> &nbsp; Modificar
+                    </button>
+                    <button type="button" mat-raised-button color="primary" 
+                    [disabled]="isBtnSalvar"
+                    (click)="limpiar()">
+                    <i class="fa fa-edit" aria-hidden="true"></i> &nbsp; Cancelar
+                    </button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+   
+</form>
+

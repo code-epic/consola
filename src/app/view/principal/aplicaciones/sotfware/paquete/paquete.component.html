@@ -1,0 +1,34 @@
+<button type="button" class="btn btn-success" (click)="modalAccion(frmSubAccion)"><i class="icon-paper-clip"></i></button>
+
+    <ng-template #frmSubAccion let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Subir paquete</h4>
+            
+        </div>
+        <div class="modal-body">
+            <form #form="ngForm">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="container">
+                            Los paquetes o programas que incluiran podran ser escritas en Golang, PHP, Python, Java, JavaScript, HTML.
+                        </div>   
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    
+                    <div class="col-md-12" >
+                        <angular-file-uploader [config]="afuConfig"></angular-file-uploader>
+                    </div>
+                </div>   
+    
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary float-right" 
+                (click)="modal.dismiss('Cross click')">Cancelar
+            </button>
+            
+        </div>
+    </ng-template>

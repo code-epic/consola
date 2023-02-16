@@ -1,0 +1,46 @@
+<br>
+<!-- <form #rolPrivilegios="ngForm" (ngSubmit)="onClickSubmit(rolPrivilegios)"> -->
+<form  class="normal-form">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Estado Origen</label>
+                <select class="form-control selected" style="display: flex; justify-content: center;" >
+                    <option value="0">SELECCIONE</option>
+                    <!-- <option  *ngFor="let xapp of lstApps" value="{{ xapp.id }}">{{xapp.nomb}} : {{xapp.vers}}</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Transicion</label>
+                <input type="text" id="txtName" class="form-control" placeholder="Enter ..." >
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Estado Destino</label>
+                <select class="form-control selected" style="display: flex; justify-content: center;" >
+                    <option value="0">SELECCIONE</option>
+                    <!-- <option  *ngFor="let xapp of lstApps" value="{{ xapp.id }}">{{xapp.nomb}} : {{xapp.vers}}</option> -->
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label>Descripcion</label>
+            <div class="input-group mb-3">
+                
+                <input style="font-size:14px;" type="text" class="form-control" >
+                <div class="input-group-prepend">
+                    
+                    <button type="button" mat-raised-button color="warning" 
+>
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i> &nbsp; Agregar Definición
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+</form>

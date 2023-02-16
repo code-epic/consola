@@ -1,0 +1,578 @@
+<ngx-ui-loader [loaderId]="'loader-registrar'"></ngx-ui-loader>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3" id="fondo" style="padding:15px;border: 1px solid #e9e4e4c9">
+           
+                <br>
+                <img 
+                class="card-img-top" 
+                src="../../assets/img/brand/flujo.api.png" 
+                style="height: 160px;">
+             
+                <br><br>
+                <h3 style="font-size:20px">API Restful</h3>
+                
+                <p class="card-text"> Es una interfaz de programación de aplicaciones (Application Programming Interface). 
+                    Es un conjunto de rutinas que provee acceso a funciones de un software.</p>
+                              
+            
+            <br>
+                     
+          
+        </div>
+
+
+        <div class="col-md-9 text-center">
+            <form role="form" id="Api">
+
+           
+                
+                <ng-wizard [config]="config" (stepChanged)="stepChanged($event)" >
+
+                    <ng-wizard-step [title]="'Paso 1'" [description]="'Definición y clasificación'"
+                        [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">    
+                                        <label>HTTP / Puerto</label>                                              
+                                        <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <input type="checkbox" id="chkhttp" 
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.http"  value ="{{xAPI.http}}"  disabled>
+                                            </span>
+                                        </div>
+                                            <select class="form-control selected" (change)="SeleccionarChk(this.puertohttp)" 
+                                            [ngModelOptions]="{standalone: true}" [(ngModel)]="puertohttp"  value ="{{xAPI.puertohttp}}">
+                                                <option value=0>SELECCIONE</option>
+                                                <option value=8012>8012</option>
+                                                <option value=8013>8013</option>
+                                            </select>
+                                        </div>
+                                        <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">    
+                                        <label>HTTPS / Puerto</label>                                              
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <input type="checkbox" id="chkhttps" 
+                                                [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.https"  value ="{{xAPI.https}}" disabled>
+                                            </span>
+                                        </div>
+                                        <select class="form-control selected" (change)="SeleccionarChks(this.puertohttps)" 
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="puertohttps"  value ="{{xAPI.puertohttps}}">
+                                            <option value=0>SELECCIONE</option>
+                                            <option value=2286>2286</option>
+                                            <option value=2385>2385</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-eye"></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select id="cmbTipo" class="form-control selected"  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.tipo"  value ="{{xAPI.tipo}}"
+                                    (change)="onTipo($event)">
+                                        <option value="S">SELECCIONE</option>
+                                        <option value="CODIGO">GENERAR CODIGO</option>
+                                        <option value="LOGICA">LOGICA DE NEGOCIO</option>
+                                        <option value="CONSULTA">CONSULTA SLQ / NOSQL</option>
+                                        <option value="INTERFAZ">INTERFAZ</option>
+                                        <option value="ARCHIVO">ARCHIVO</option>
+                                    </select>
+                                </div>
+                            </div>
+                                
+                        </div>
+
+                       
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Función</label>
+                                    <input type="text" id="txtFuncion" class="form-control" placeholder="Enter ..."  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.funcion"  value ="{{xAPI.funcion}}"
+                                    (onBlur) = "seleccionarUrl()">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Versión</label>
+                                    <input type="text" id="txtVersion" class="form-control" placeholder="Enter ..."  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.version" readonly value ="{{xAPI.version}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Conexión</label>
+                                    <select id="cmbDriver" class="form-control selected"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.driver"  value ="{{xAPI.driver}}"
+                                    (change)="selDataBase()">
+                                        <option value="S">SELECCIONE</option>
+                                        <option *ngFor="let mdl of drivers" value="{{mdl.id}}" >{{ mdl.descripcion }} ( {{mdl.basedatos}} ) </option> 
+                                    </select>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <select id="cmbCategoria" class="form-control selected"  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.categoria"  value ="{{xAPI.categoria}}">
+                                        <option value="S">SELECCIONE</option>
+                                        <option value="CORE">CORE</option>
+                                        <option value="APLICACIONES">APLICACIONES</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            
+                       
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Funcionalidad</label>
+                                    <select id="cmbFuncionalidad" class="form-control selected"  
+                                        [ngModelOptions]="{standalone: true}" 
+                                        [(ngModel)]="xAPI.funcionalidad"  value ="{{xAPI.funcionalidad}}">
+                                        <option value="S">SELECCIONE</option>
+                                        <option value="LOGICA">LOGICA</option>
+                                        <option value="FINANCIERA">FINANCIERA</option>
+                                        <option value="ARITMETICA">ARITMETICA</option>
+                                        <option value="INGENIERIA">INGENIERIA</option>
+                                        <option value="ESTADISTICA">ESTADISTICA</option>
+                                        <option value="SISTEMA">SISTEMA</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Incluir una breve descripción:</label>
+                                    <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Enter ..."
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.descripcion"  value ="{{xAPI.descripcion}}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </ng-wizard-step>
+
+                    <ng-wizard-step [title]="'Paso 2'" [description]="'Tipo de información'">
+                        <br>
+                        <div class="container" [ngStyle]="{'display':divConsultang}" style="padding:3px">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Metodo</label>
+                                        <select id="cmbMetodo" class="form-control selected"  
+                                            [ngModelOptions]="{standalone: true}" 
+                                            [(ngModel)]="xAPI.metodo"  value ="{{xAPI.metodo}}"  (change)="onMetodo($event)">
+                                            <option value="S" selected>SELECCIONE</option>
+                                            <option value="INSERTAR">INSERTAR</option>
+                                            <option value="CONSULTAR">CONSULTAR</option>
+                                            <option value="ACTUALIZAR">ACTUALIZAR</option>
+                                            <option value="ELIMINAR">ELIMINAR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" >
+                                    <div class="form-group">
+                                        <label>Relacional</label>
+                                        <select id="cmbRelacional" class="form-control selected"  
+                                            [ngModelOptions]="{standalone: true}" 
+                                            [(ngModel)]="xrelacional"  value ="{{xrelacional}}">
+                                            <option value="0" selected>SELECCIONE</option>
+                                            <option value=false>NO</option>
+                                            <option value=true>SI</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Colección en caso de ser NOSQL</label>
+                                        <input type="text" class="form-control" [disabled]="xrelacional"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.coleccion"  value ="{{xAPI.coleccion}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre de la tabla</label>
+                                        <input type="text" class="form-control"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="tabla"  value ="{{tabla}}">
+                                    </div>
+                                </div> -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre de la tabla</label>
+                                        <div class="ng-autocomplete " style="width:100%;margin-top:-3px"> 
+                                            <ng-autocomplete 
+                                                [ngModelOptions]="{standalone: true}"
+                                                [name]="tabla"
+                                                [(ngModel)]="tabla"
+                                                [data]="dataModulo"
+                                                [searchKeyword]="keyword"
+                                                (selected)='selectEventModulo($event)'
+                                                (inputFocused)='onFocusedModulo($event)'
+                                                [itemTemplate]="itemTemplate">    
+                                            </ng-autocomplete>
+                                            
+                                            <ng-template #itemTemplate let-item >
+                                                
+                                                <a [innerHTML]="item.id"></a>
+                                            </ng-template>
+                                            
+                                            <!-- 
+                                               [notFoundTemplate]="notFoundTemplate"
+                                                <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                            </ng-template> -->
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>   
+
+                                <div class="col-md-3">
+                                    <label>Tipo de dato</label>
+                                    <div class="input-group mb-4">
+                                        <select class="form-control selected"  style="margin-top:-2px;height: 40px;"
+                                        (change)="onDml($event)" [ngModelOptions]="{standalone: true}" [(ngModel)]="xdml"  value ="{{ xdml }}">
+                                            <option  value="S" selected>--------</option>
+                                            <option *ngFor="let l of lstDml " value ="{{l.id}}" >{{l.nombre}}</option>
+                                            
+
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Valor por defecto</label>
+                                        <input type="text" class="form-control" style="margin-top:-2px;height: 40px;"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="defecto"  value ="{{defecto}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Codición</label>
+                                        <select class="form-control selected"  style="margin-top:-2px;height: 40px;"
+                                        [ngModelOptions]="{standalone: true}" 
+                                        [disabled]="xcondicion"
+                                        [(ngModel)]="condicion"  value ="{{condicion}}">
+                                            <option  value="" selected>--------</option>
+                                            <option  value="AND" >AND</option>
+                                            <option  value="OR" >OR</option>
+                                            <option  value="IN" >IN</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre del campo</label>
+                                        <input type="text" class="form-control"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="campo"  value ="{{campo}}">
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre del campo </label>
+                                        <div class="ng-autocomplete " style="width:100%;margin-top:-3px"> 
+                                            <ng-autocomplete 
+                                                [ngModelOptions]="{standalone: true}"
+                                                [name]="campo"
+                                                [(ngModel)]="campo"
+                                                [data]="dataCampo"
+                                                [searchKeyword]="keywords"
+                                                (selected)='selectEventModulos($event)'
+                                                (inputFocused)='onFocusedModulos($event)'
+                                                [itemTemplate]="itemTemplates">    
+                                            </ng-autocomplete>
+                                            
+                                            <ng-template #itemTemplates let-item >
+                                                
+                                                <a [innerHTML]="item.id"></a>
+                                            </ng-template>
+                                            
+                                            <!-- 
+                                               [notFoundTemplate]="notFoundTemplate"
+                                                <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                            </ng-template> -->
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>   
+
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Alias</label>
+                                        <input type="text" class="form-control" style="margin-top:-2px;height: 40px;"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="alias"  value ="{{alias}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Tipo de dato</label>
+                                    <div class="input-group mb-4">
+                                        
+                                        <select class="form-control selected"  style="margin-top:-2px;height: 40px;"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="tipodato"  value ="{{tipodato}}">
+                                            <option value="S" selected>SELECCIONE</option>
+                                            <option value="boo">LOGICO</option>
+                                            <option value="string">CADENA</option>
+                                            <option value="date">FECHA</option>
+                                            <option value="int">ENTERO</option>
+                                            <option value="dbl">DOBLE</option>
+                                            <option value="sql">SQL</option>
+                                            <option value="cencrypt">FICHERO CIFRADO</option>
+                                            <option value="orcdt">F./HORA ORACLE</option>
+                                        </select>
+                                        <div class="input-group-prepend">
+                                            
+                                            <button type="button" mat-raised-button color="primary" style="margin-top:-2px;height: 40px;"
+                        
+                                                (click)="agregarEntrada()">
+                                                <i class="fa fa-plus" aria-hidden="true"></i> &nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Esquema de entrada:</label>
+                                    <div class="form-group text-justify">
+                                        <ngx-codemirror
+                                            [ngModelOptions]="{standalone: true}" 
+                                            [(ngModel)]="xAPI.entradas"
+                                            (ngModelChange)="setEditorContent($event)"
+                                            (click)="clickRefresh($event)"
+                                            [options]="codeJson">
+                                        </ngx-codemirror>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <!-- <label>Consulta / SQL / NOSQL </label>
+                                        <textarea class="form-control" rows="5" id="txtConsulta" placeholder="Enter ..." 
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="consulta"  value ="{{consulta}}"></textarea> -->
+                                        <label>Consulta / SQL / NOSQL </label>
+                                        <div class="form-group text-justify">
+                                            <ngx-codemirror
+                                                [ngModelOptions]="{standalone: true}" 
+                                                [(ngModel)]="xAPI.query"
+                                                (ngModelChange)="setEditorContent($event)"
+                                                (click)="clickRefresh($event)"
+                                                [options]="codeSQL">
+                                            </ngx-codemirror>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Funciones </label>
+                                        <select id="cmbTotalizar" class="form-control selected"  [ngModelOptions]="{standalone: true}" [(ngModel)]="totalizar"  value ="{{totalizar}}">
+                                            <option value="S" selected>SELECCIONE</option>
+                                            <option value="SUM">SUMA</option>
+                                            <option value="PROM">PROMEDIO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label>Agregar columna de la consulta</label>
+                                        <input type="text" id="txtColumna" class="form-control" 
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="columna"  value ="{{columna}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" [ngStyle]="{'display':divArchivosng}">
+                                    
+                            <div class="col-md-4" >
+                                <div class="form-group">
+                                    <label>Relacional</label>
+                                    <select id="cmbRelacional" class="form-control selected"  [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.relacional" value ="{{xAPI.relacional}}" >
+                                    
+                                        <option value=false>NO</option>
+                                        <option value=true>SI</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" >
+                                <div class="form-group">
+                                    <label>Módulo</label>
+                                    <select id="cmbModulo" class="form-control selected" (change)="CargarArchivos()" 
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="modulo"  >
+                                        <option value="0">SELECCIONE</option>
+                                        <option *ngFor="let mdl of modulos" value="{{mdl}}" >{{ mdl }}</option> 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" >
+                                <div class="form-group">    
+                                        <label>Seleccionar archivos (opcional)</label>                                              
+                                    <div class="input-group">
+                                        <select class="form-control selected" id="cmbArchivos"  [ngModelOptions]="{standalone: true}" [(ngModel)]="archivo"  >
+                                            <option value="0">SELECCIONE</option>
+                                            <option *ngFor="let mdl of archivos" value="{{ mdl }}" >{{ mdl }}</option> 
+                                        </select>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" (click)="ProcesarArchivos()"><i class="fa fa-play"></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- /input-group -->
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row" [ngStyle]="{'display':divCodigofuente}">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Codigo Fuente </label>
+                                    <textarea class="form-control" rows="8" id="txtCodigo" placeholder="Enter ..."  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="codigo"  value ="{{codigo}}"></textarea>
+                                    
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-7"></div>
+                            <div class="col-md-5" id="duracion" style="text-align: right;">
+                                <b>Duración:</b> 00.00.00 seg &nbsp; <b>Peso:</b> 0.00 KB<hr>
+                            </div>
+                        </div>
+                    </ng-wizard-step>
+
+                    <ng-wizard-step [title]="'Paso 3'" [description]="'Configuraciones generales'">
+                        <br>
+                        <div class="row">
+                                
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Consumidores</label>
+                                    <input type="number" id="txtConsumidores" class="form-control" 
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.consumidores"  value ="{{xAPI.consumidores}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Cache</label>
+                                    <select id="cmbCache" class="form-control selected"  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="cache"  value ={{xAPI.cache}}>
+                                        <option value=0>NINGUNO</option>
+                                        <option value=1>INCLUSIVO</option>
+                                        <option value=2>EXCLUSIVO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Logs</label>
+                                    <select id="cmbLog" class="form-control selected"  [ngModelOptions]="{standalone: true}" [(ngModel)]="log"  value ="{{xAPI.logs}}">
+                                        <option value=true>SI</option>
+                                        <option value=false>NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Concurrente</label>
+                                    <select id="cmbConcurrencia" class="form-control selected"  [ngModelOptions]="{standalone: true}" [(ngModel)]="concurrencia"  value ="{{xAPI.concurrencia}}">
+                                        <option value=true>SI</option>
+                                        <option value=false>NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Retorno</label>
+                                    <select id="cmbRetorno" class="form-control selected"  [ngModelOptions]="{standalone: true}" [(ngModel)]="retorna"  value ="{{xAPI.retorna}}">
+                                        <option value=true>SI</option>
+                                        <option value=false>NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Prioridad</label>
+                                    <select id="cmbPrioridad" class="form-control selected"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.prioridad"  value ="{{xAPI.prioridad}}">
+                                        <option value="0">BAJA</option>
+                                        <option value="1">MEDIA</option>
+                                        <option value="2">ALTA</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Entorno</label>
+                                    <select id="cmbEntorno" class="form-control selected"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xAPI.entorno"  value ="{{xAPI.entorno}}">
+                                        <option value="desarrollo" selected>DESARROLLO</option>
+                                        <option value="calidad">CALIDAD</option>
+                                        <option value="produccion">PRODUCCION</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Aplicar Waf</label>
+                                    <select id="cmbAccion" class="form-control selected"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="accion"  value ={{xAPI.accion}}>
+                                        <option value=true>SI</option>
+                                        <option value=false>NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>URL</label>
+                                    <input type="text" id="txtUrl" class="form-control" placeholder="http://...:xxxx/..."  
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="xruta"  value ="{{xruta}}"
+                                    readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-wizard-step>
+                
+                </ng-wizard>
+            
+            </form>
+        </div> 
+        <!-- Fin del col-9 -->
+       
+    </div>
+</div>

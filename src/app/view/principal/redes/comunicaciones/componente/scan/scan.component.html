@@ -1,0 +1,34 @@
+<i style='color:#D31BCE;font-size: 22px;' class='fa fa-user-secret'  (click)='activarFormulario(frmScan)'>
+
+
+
+
+<ng-template #frmScan let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Escaneando: nmap -sT </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+        <form #form="ngForm">
+           <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Resultado</label>
+                        <div style="width:100%; height:400px; overflow: scroll;">
+                            <textarea id="xrs" style="font-size:11px; width: 100%; height: 400px;" 
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="xrs"  value ="{{xrs}}"></textarea>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="ScanRed()">Escanear</button>
+        <button type="button" class="btn btn-secondary float-right" (click)="modal.dismiss('Cross click')">Cancelar</button>
+    </div>
+</ng-template>

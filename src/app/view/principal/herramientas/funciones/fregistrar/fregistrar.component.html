@@ -1,0 +1,207 @@
+<div class="container">
+    <br>
+    <div class="col-md-12 text-justify">
+
+        <ngx-ui-loader [loaderId]="'loader'"></ngx-ui-loader>
+        <form role="form" id="Api">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Id del proceso</label>
+                        <input type="text" class="form-control" placeholder="Enter ..."
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.id" value="{{Fnx.id}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="cmbTipo" class="form-control selected" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="Fnx.tipo" value="{{Fnx.tipo}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value="LOGICA">LOGICA</option>
+                            <option value="MATEMATICAS">MATEMATICAS</option>
+                            <option value="BASEDATOS">BASE DE DATOS</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="txtNombre" class="form-control" placeholder="Enter ..."
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.nombre" value="{{Fnx.nombre}}">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Versión</label>
+                        <input type="text" id="txtVersion" class="form-control" placeholder="Enter ..." readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.version" value="{{Fnx.version}}">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Estatus</label>
+                        <select class="form-control selected" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="estatus" value="{{estatus}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value=0>INACTIVO</option>
+                            <option value=1>ACTIVO</option>
+                            <option value=2  disabled="disabled">EJECUTANDOSE</option>
+                            <option value=3  disabled="disabled">FINALIZADO</option>
+                            <option value=4  disabled="disabled">ZOMBIE</option>    
+                        </select>
+                    </div>
+                </div>
+                
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Lenguaje</label>
+                        <select id="cmbLenguaje" class="form-control selected" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="Fnx.lenguaje" value="{{Fnx.lenguaje}}" (change)="cambiarModo()">
+                            <option value="S">SELECCIONE</option>
+                            <option value='GO'>GOLANG</option>
+                            <option value='BASH'>SCRIPT BASH</option>
+                            <option value='SHELL'>SHELL COMMANDS</option>
+                            <option value='PHP'>PHP +7</option>
+                            <option value='PYTHON'>PHP +7</option>
+                            <option value='RUST'>PHP +7</option>
+                            <option value='NJS'>NODE JS</option>
+                            <option value='C++'>C++</option>
+                            <option value='RDN'>REGLAS DE NEGOCIOS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="cmbCategoria" class="form-control selected" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="Fnx.categoria" value="{{Fnx.categoria}}" (change)="SeleccionarPrograma()">
+                            <option value="S">SELECCIONE</option>
+                            <option value="EXEC">EJECUCION</option>
+                            <option value="PROGRAM">TAREA PROGRAMADA</option>
+                            <option value="ESCALAR">ESCALABILIDAD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Valor de Retorno</label>
+                        <select class="form-control selected" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="Fnx.retorno" value="{{Fnx.retorno}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value="BOOL">LOGICO</option>
+                            <option value="STRING">CADENA</option>
+                            <option value="ARRAY">ARREGLO</option>
+                            <option value="OBJECT">OBJETO</option>
+                            <option value="NULL">NULL</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 
+                // .--------------- minuto (0-59)
+                // |  .------------ hora (0-23)
+                // |  |  .--------- día del mes (1-31)
+                // |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
+                // |  |  |  |  .--- día de la semana (0-6) (domingo=0 o 7) o sun,mon,tue,wed,thu,fri,sat (días en inglés)
+                // |  |  |  |  |
+                // *  *  *  *  *  comando a ejecutar
+                // */5 * * * *  se ejecuta cada 5 minutos.
+                -->
+                <div class="col-md-3" *ngIf="divTiempo">
+                    <div class="form-group">
+                        <label>Especificaci&oacute;n del tiempo</label>
+                        <div class="input-group">
+                            <input type="text"  class="form-control" placeholder="* * * * *"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.tiempo" value="{{Fnx.tiempo}}">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-secondary"(click)="openHelp()">
+                                        <i class="icon-globe"></i>
+                                    </button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Incluir una descripción:</label>
+                        <textarea class="form-control" rows="2" placeholder="Enter ..."
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.descripcion"
+                            value="{{Fnx.descripcion}}"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="row" style="display: none;">
+                <div class="col-md-12">
+                    <label>Esquema de entrada:</label>
+                    <div class="form-group">
+                        <ngx-codemirror [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.parametros" style="height: 100px;"
+                            [options]="codeMOEsquemaJson"  (click)='setEditorContent($event)'></ngx-codemirror>
+                    </div>
+                </div>
+            </div>
+
+         
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Escribir codigo fuente:</label>
+                    <div class="form-group">
+                        <ngx-codemirror [ngModelOptions]="{standalone: true}" [(ngModel)]="Fnx.codigo" style="height: 100px;"
+                            [options]="codeMirrorOptions"  (click)='setEditorContent($event)'></ngx-codemirror>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+
+                    <button type="button" class="btn btn-success" (click)="Guardar()">Registar funci&oacute;n</button>
+                </div>
+
+            </div>
+            <br>
+            <br>
+          
+
+
+        </form>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>This card indeterminates progress bar.</p>
+      <p>{{longText}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card> -->

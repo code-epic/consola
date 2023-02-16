@@ -1,0 +1,78 @@
+    <div class="modal-header">
+      <h4 class="modal-title">{{bodyText}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal('close')">X</button>
+    </div>
+    <div class="modal-body modal-lg">
+        <form #form="ngForm">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Metodo</label>
+                        <select id="cmbMetodo" class="form-control selected" >
+                            <option value="0" selected>SELECCIONE</option>
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="OPTIONS">OPTIONS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Funci&oacute;n</label>
+                        <div class="input-group">
+                            <input type="text" id="txtFuncion"class="form-control"  >
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <div class="input-group">
+                            <input type="text" id="txtNombre"class="form-control" >
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+            <!-- <div class="row">
+            
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>EndPoint</label>
+                        <div class="ng-autocomplete" > 
+                            <ng-autocomplete 
+                                [searchKeyword]="keyword"
+                                (selected)='selectEvent($event)'
+                                (inputChanged)='onChangeSearch($event)'
+                                (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplate"
+                                [notFoundTemplate]="notFoundTemplate">    
+                                [(ngModel)]="subendpoint"                             
+                            </ng-autocomplete>
+                        </div>
+                        
+                    </div>
+                </div>
+            
+            </div> -->
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Directiviva</label>
+                        <div class="input-group">
+                            <textarea class="form-control" rows="3" id="txtDirectiva" placeholder="Enter ..." >
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="closeModal('Cross click')">Close</button>
+    </div>

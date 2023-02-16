@@ -1,0 +1,497 @@
+
+<!--
+Realizado por: Yasmin Vicuña Rondon
+Fecha: 23-11-2020
+Titulo: Panel de Control: APICORE
+ -->
+
+
+ <div class="animated fadeIn" [ngStyle]="{'display':sectionConsultar}">
+    <section class="esb">        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                        <a name="cuerpo"></a>
+                        
+                            <div class="text-value">
+                                <div class="btn-group float-right" >
+                                    <button type="button" class="btn btn-pill bg-primary" (click)="seccionRegistrar('')" > Registrar Nueva API</button>
+                                </div> 
+                                <h3 >Modelo SCA ( Servidor Core de API ) </h3>
+                                <hr>
+                            </div>
+                       
+                        
+
+                        
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-5 text-center">
+                                    <h1> API RestFul </h1>
+                                    
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                   
+                                </div>
+                                <div class="col-md-6 text-center">
+                                  
+                                  <form class="navbar-search">
+                                    <div class="form-group" [ngClass]="{ 'focused': focus === true }">
+                                      <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                          </div>
+                                        <input class="form-control" placeholder="Buscar" type="text"
+                                        [ngModelOptions]="{standalone: true}" [(ngModel)]="buscar"  value ="{{buscar}}"
+                                        (keypress)="seleccionLista($event)"
+                                         (focus)="focus = true"  (blur)="focus = false">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-sliders"></i></span>
+                                          </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </form>
+                                  
+                                </div>
+                                <div class="col-md-3">
+                      
+                                </div>
+
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ngx-ui-loader [loaderId]="'loader-apis'"></ngx-ui-loader>
+                                    <!--  -->
+                                    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" (selectedIndexChange)="CargarListadoAPI($event)">
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <!-- <mat-icon class="example-tab-icon">source</mat-icon> -->
+                                            &nbsp;DESARROLLO
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <mat-expansion-panel hideToggle *ngFor="let api of lst">
+                                                <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                        <b> {{ api.funcion }} </b>
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                        <div class="col-md-4"> {{ api.metodo }} </div>
+                                                        <div class="col-md-3"> {{ api.categoria }} </div>
+                                                        <div class="col-md-3"> {{ api.driver }} </div>
+                                                        <div class="col-md-2"><span class="float-right badge me-1 bg-primary">{{ api.version }}</span></div>
+                                                    </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                <mat-divider></mat-divider>
+                                                <br>
+                                                <table class="table table-striped border datatable">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Hash</th>
+                                                        <th>Funcionalidad</th>
+                                                        <th>Tipo</th>
+                                                        <th>Cache</th>
+                                                        <th>Log</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="align-middle">
+                                                          <td>{{ api.id }}</td>
+                                                          <td>{{ api.funcionalidad }}</td>
+                                                          <td>{{ api.tipo }} </td>
+                                                          <td>{{ api.cache }}</td>
+                                                          <td>{{ api.logs }}</td>
+                                                        </tr>
+                                                        <tr class="align-middle">
+                                                            <td colspan="5">
+                                                                {{ api.descripcion }}  
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                
+                                                <p class="card-text text-justify">
+                                                    
+                                                   
+                                                                                   
+                                              
+                                                   <br>
+                                                   
+                                                    <code>
+                                                        {{ api.query }}
+                                                    </code>
+                                                </p>
+                                                <mat-action-row>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-sm btn-primary " (click)="promover( 'calidad', api.funcion, 'promover')">Promover</button>
+                                                        <button class="btn btn-sm btn-danger " (click)="eliminarAPI( api )">Eliminar</button>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button class="btn btn-sm btn-warning"  (click)="ConsultarAPIFrm( api )">Modificar</button>
+                                                        <button class="btn btn-sm btn-info" (click)="activarFormulario( frmSQL, api )">Probar</button>
+                                                    </div>
+                                                    
+                                                </mat-action-row>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                            <mat-paginator [length]="lengthOfi"
+                                                (page)="pageChangeEvent($event)"
+                                                [pageSize]="pageSizeOfi"
+                                                [pageSizeOptions]="pageSizeOptions"
+                                                (page)="pageEvent = $event"
+                                                aria-label="Seleccionar">
+                                            </mat-paginator>
+                              
+                              
+                                        </mat-tab>
+                                        <!-- 
+                                            <mat-tab>
+                                                <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">hourglass_bottom</mat-icon>
+                                                &nbsp;TESTING
+                                                </ng-template>
+                                            </mat-tab> 
+                                        -->
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <!-- <mat-icon class="example-tab-icon">add_task</mat-icon> -->
+                                            &nbsp;CALIDAD
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <mat-expansion-panel hideToggle *ngFor="let api of lst">
+                                                <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                        <b> {{ api.funcion }} </b>
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                        <div class="col-md-4"> {{ api.metodo }} </div>
+                                                        <div class="col-md-3"> {{ api.categoria }} </div>
+                                                        <div class="col-md-3"> {{ api.driver }} </div>
+                                                        <div class="col-md-2"><span class="float-right badge me-1 bg-primary">{{ api.version }}</span></div>
+                                                    </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                <mat-divider></mat-divider>
+                                                <br>
+                                                <table class="table table-striped border datatable">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Hash</th>
+                                                        <th>Funcionalidad</th>
+                                                        <th>Tipo</th>
+                                                        <th>Cache</th>
+                                                        <th>Log</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="align-middle">
+                                                            <td>{{ api.id }}</td>
+                                                            <td>{{ api.funcionalidad }}</td>
+                                                            <td>{{ api.tipo }} </td>
+                                                            <td>{{ api.cache }}</td>
+                                                            <td>{{ api.logs }}</td>
+                                                        </tr>
+                                                        <tr class="align-middle">
+                                                            <td colspan="5">
+                                                                {{ api.descripcion }}  
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                
+                                                <p class="card-text text-justify">
+                                                    
+                                                   
+                                                                                   
+                                              
+                                                   <br>
+                                                   
+                                                    <code>
+                                                        {{ api.query }}
+                                                    </code>
+                                                </p>
+                                                <mat-action-row>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-sm btn-danger " type="button"  (click)="promover( 'desarrollo', api.funcion, 'reversar')">Reversar a desarrollo</button> 
+                                                        <button class="btn btn-sm btn-primary " type="button"  (click)="promover( 'produccion', api.funcion, 'instalar')">Instalar</button>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button class="btn btn-sm btn-warning"  (click)="ConsultarAPIFrm( api )">Modificar</button>
+                                                        <button class="btn btn-sm btn-info" (click)="activarFormulario( frmSQL, api )">Probar versión</button>
+                                                    </div>
+                                                    
+                                                </mat-action-row>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                            <mat-paginator [length]="lengthOfi"
+                                                (page)="pageChangeEvent($event)"
+                                                [pageSize]="pageSizeOfi"
+                                                [pageSizeOptions]="pageSizeOptions"
+                                                (page)="pageEvent = $event"
+                                                aria-label="Seleccionar">
+                                            </mat-paginator>
+                                        
+                                        
+                                        </mat-tab>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <!-- <mat-icon class="example-tab-icon">tips_and_updates</mat-icon> -->
+                                            &nbsp;PRODUCCIÓN
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <mat-expansion-panel hideToggle *ngFor="let api of lst">
+                                                <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                        <b> {{ api.funcion }} </b>
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                        <div class="col-md-4"> {{ api.metodo }} </div>
+                                                        <div class="col-md-3"> {{ api.categoria }} </div>
+                                                        <div class="col-md-3"> {{ api.driver }} </div>
+                                                        <div class="col-md-2"><span class="float-right badge me-1 bg-primary">{{ api.version }}</span></div>
+                                                    </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                <mat-divider></mat-divider>
+                                                <br>
+                                                <table class="table table-striped border datatable">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Hash</th>
+                                                        <th>Funcionalidad</th>
+                                                        <th>Tipo</th>
+                                                        <th>Cache</th>
+                                                        <th>Log</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="align-middle">
+                                                            <td>{{ api.id }}</td>
+                                                            <td>{{ api.funcionalidad }}</td>
+                                                            <td>{{ api.tipo }} </td>
+                                                            <td>{{ api.cache }}</td>
+                                                            <td>{{ api.logs }}</td>
+                                                        </tr>
+                                                        <tr class="align-middle">
+                                                            <td colspan="5">
+                                                                {{ api.descripcion }}  
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                
+                                                <p class="card-text text-justify">
+                                                    
+                                                   
+                                                                                   
+                                              
+                                                   <br>
+                                                   
+                                                    <code>
+                                                        {{ api.query }}
+                                                    </code>
+                                                </p>
+                                                <mat-action-row>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-sm btn-danger " type="button" (click)="promover( 'calidad', api.funcion, 'reversar')">Reversar a desarrollo</button>
+                                                    </div>
+                                                    <!-- <div class="col-md-6 text-right">
+                                                        <button class="btn btn-sm btn-primary" type="button">Cerrar versión</button>
+                                                    </div> -->
+                                                    
+                                                </mat-action-row>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                            <mat-paginator [length]="lengthOfi"
+                                                (page)="pageChangeEvent($event)"
+                                                [pageSize]="pageSizeOfi"
+                                                [pageSizeOptions]="pageSizeOptions"
+                                                (page)="pageEvent = $event"
+                                                aria-label="Seleccionar">
+                                            </mat-paginator>
+                              
+                                        
+                                        
+                                        </mat-tab>
+                                    </mat-tab-group>
+
+                                
+                                </div>
+                            </div>
+    
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </div>
+
+
+
+ <div class="animated fadeIn"  [ngStyle]="{'display':sectionRegistar}" >
+    <section class="esb">        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <div class="btn-group float-right" style="padding:3px">
+                            <button type="button" class="btn btn-pill bg-light" (click)="seccionRegistrar('none')" >
+                                Consultar Listado de API's
+                            </button>
+                            
+                            
+                        
+                        </div> 
+                        <h3>Registar una Nueva API</h3>
+                        <hr>
+
+                        <app-registrar ApiCore="{{ApiCore}}"></app-registrar>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </div>
+
+
+
+
+
+
+<ng-template #frmSQL let-modal>
+    <div class="modal-body">
+
+        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs"  >
+            <mat-tab>
+                <ng-template mat-tab-label>
+                <!-- <mat-icon class="example-tab-icon">source</mat-icon> -->
+                &nbsp;Laboratorio de pruebas
+                </ng-template>
+                <div class="container">
+                    <br>
+                    <form #form="ngForm">
+                        <div class="row">
+                            <div class="col-md-12" id="divParametro">
+                                <div class="form-group">
+                                    <label>Parametros</label>
+                                    <input style="font-size:11px;" type="text" class="form-control"  
+                                    [ngModelOptions]="{standalone: true}" 
+                                    [(ngModel)]="xparametro" value ="{{xparametro}}">
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="divValores">
+                                <div class="form-group">
+                                    <label>Valores</label>
+                                    <ngx-codemirror
+                                    [ngModelOptions]="{standalone: true}" 
+                                    [(ngModel)]="valores"
+                                    (ngModelChange)="setEditorContent($event)"
+                                    (blur)="seleccionEditor($event)"
+                                    [options]="codeMOEsquemaJson"
+                                    ></ngx-codemirror>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <input style="font-size:14px;" type="text" 
+                                        class="form-control" [ngModelOptions]="{standalone: true}" 
+                                        [(ngModel)]="xentorno"  value ="{{xentorno}}" readonly>
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-success" 
+                                            (click)="ejecutarApi()"><i class="fa fa-play"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Resultado</label>
+                                    <div style="width:100%; height:150px; overflow: scroll;">
+                                        <div id="xrs" style="font-size:11px; width: 100%; height: 150px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                <!-- <mat-icon class="example-tab-icon">code</mat-icon> -->
+                &nbsp;Fragmento de Código
+                </ng-template>
+                <div class="container">
+                    <br>
+                    <div class="col-md-12">
+                        <label>Ejemplo de ejecución:</label>
+                        <div class="form-group text-justify">
+                            <textarea class="form-control" rows="18" 
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="codeTypeJs"  value ="{{codeTypeJs}}"></textarea> 
+                            <!-- <ngx-codemirror
+                                [ngModelOptions]="{standalone: true}" 
+                                [(ngModel)]="codeTypeJs"
+                                (ngModelChange)="setEditorContent($event)"
+                                (blur)="seleccionEditor($event)"
+                                [options]="codeJson">
+                            </ngx-codemirror> -->
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>  
+        </mat-tab-group>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary float-right" (click)="modal.dismiss('Cross click')">Cancelar</button>
+    </div>
+</ng-template>                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

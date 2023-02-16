@@ -1,0 +1,74 @@
+
+ <div class="animated fadeIn" [ngStyle]="{'display':sectionConsultar}">
+    <section class="esb">        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                        <h3>Flujos de Trabajos </h3>
+                        <hr>
+                        <div class="container">
+                           
+
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <br>
+                                    <br>
+                                    <img class = "card-img-top" 
+                                        src = "../../assets/img/brand/WorkFlow.png" 
+                                        style = "width:90%"   
+                                        alt="WorkFlow">
+                                </div>
+                                <div class="col-md-9">
+                                    <app-registrar-workflow></app-registrar-workflow>
+                                </div>
+                               
+
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!--  -->
+                                    
+                                    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" >
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">tips_and_updates</mat-icon>
+                                            &nbsp;&nbsp;ESTADOS
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <app-estados></app-estados>
+                                            </mat-accordion>                        
+                                        </mat-tab>
+                                       <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">table_view</mat-icon>
+                                            &nbsp;&nbsp;TRANSICIONES
+                                            </ng-template> 
+                                            <mat-accordion class="example-headers-align">
+                                                <app-transiciones></app-transiciones>
+                                            </mat-accordion>                        
+                                        </mat-tab>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">extension</mat-icon>
+                                            &nbsp;&nbsp;DEFINIER RED
+                                            </ng-template> 
+                                            <mat-accordion class="example-headers-align">
+                                                <app-red></app-red>
+                                            </mat-accordion>                        
+                                        </mat-tab>
+                                    </mat-tab-group>                              
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </div>

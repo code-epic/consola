@@ -1,0 +1,284 @@
+
+<!--
+Realizado por: Yasmin Vicuña Rondon
+Fecha: 23-11-2020
+Titulo: Panel de Control: APICORE
+ -->
+
+
+ <div class="animated fadeIn" [ngStyle]="{'display':sectionConsultar}">
+    <section class="esb">        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body" style="padding:0px;height:100%">
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                        <div class="text-value"  style="padding:10px;height:100%"><h3 >Modelo SAF ( Servidor de Aplicaciones Para Funciones ) </h3>
+                            <hr>
+                        </div>
+
+                        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" 
+                        (selectedTabChange)="tabActive($event)" [selectedIndex]="selectedIndex" >
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                <!-- <mat-icon class="example-tab-icon">tips_and_updates</mat-icon> -->
+                                &nbsp;CONSULTAR FUNCIONES
+                                </ng-template>
+                                
+                                <div class="container">
+                                    <br>
+                                 
+                                    <!-- <mat-form-field appearance="fill">
+                                        <mat-label>Selected tab index</mat-label>
+                                        <input matInput type="number" [formControl]="selected">
+                                    </mat-form-field> -->
+                                    
+                                    <mat-selection-list #lstDocumentos>
+                                        <mat-list *ngFor="let e of lstFnx; let i=index "
+                                            style="border-bottom: 1px rgba(224, 223, 223, 0.945) solid;">
+                                            <div class="row">
+        
+                                                <div class="col-md-3 texto-lista" #tooltip="matTooltip"
+                                                    matTooltip="  {{ e.observacion | uppercase }}">
+                                                    {{ e.fecha | date:"dd-MM-yyyy" }} | {{ e.nombre }}
+                                                </div>
+                                                <!--  -->
+                                                <div class="col-md-2 text-left texto-detalle">
+                                                    {{ e.lenguaje | uppercase }} | V{{ e.version | uppercase }}
+                                                </div>
+                                                <div class="col-md-4 texto-detalle">
+                                                     {{ e.descripcion }}
+                                                </div>
+                                                <div class="col-md-1 texto-lista text-right">
+                                                    {{ obtenerEstatus(e.tipo) }}
+                                                </div>
+        
+        
+                                                <div class="col-md-2 text-right">
+        
+                                                    <button mat-icon-button aria-label="Editar"
+                                                        (click)="editar(e)" #tooltip="matTooltip"
+                                                        matTooltip="Editar funcion">
+                                                        <mat-icon class="texto-gray">edit</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button aria-label="Configurar" *ngIf="e.tiempo!=''"
+                                                        (click)="configurar(frmSQL, e)"  #tooltip="matTooltip" matTooltip="Configurar">
+                                                        <mat-icon class="texto-brown">more_time</mat-icon>
+                                                    </button>
+                                                    
+        
+                                                </div>
+                                            </div>
+                                        </mat-list>
+                                    </mat-selection-list>
+                                    <br><br>
+                                </div>
+                  
+                            
+                            
+                            </mat-tab>                
+                            <mat-tab>
+                                <ng-template mat-tab-label>
+                                <!-- <mat-icon class="example-tab-icon">add_task</mat-icon> -->
+                                &nbsp;REGISTRAR FUNCIONES
+                                </ng-template>
+                               
+                                <app-fregistrar IFnx="{{Fnx}}"></app-fregistrar>
+                            
+                            </mat-tab>
+                            
+                        </mat-tab-group>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </div>
+
+
+
+
+
+
+<ng-template #frmSQL let-modal>
+    <div class="modal-body">
+        <form #form="ngForm">
+            <h2 class="modal-title" id="modal-basic-title" style="padding-left: -20px; margin-top: 10px;">Ejecución de funciones</h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Id del proceso</label>
+                        <input type="text" class="form-control" placeholder="Enter ..." readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="id" value="{{id}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="cmbTipo" class="form-control selected" readonly disabled="disabled" 
+                        [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="tipo" value="{{tipo}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value="LOGICA">LOGICA</option>
+                            <option value="MATEMATICAS">MATEMATICAS</option>
+                            <option value="BASEDATOS">BASE DE DATOS</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" id="txtNombre" class="form-control" placeholder="Enter ..." readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="nombre" value="{{nombre}}">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Versión</label>
+                        <input type="text" id="txtVersion" class="form-control" placeholder="Enter ..." readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="version" value="{{version}}">
+                    </div>
+                </div>
+                
+                
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Lenguaje</label>
+                        <select id="cmbLenguaje" class="form-control selected" readonly disabled="disabled" 
+                        [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="lenguaje" value="{{lenguaje}}" (change)="cambiarModo()">
+                            <option value="S">SELECCIONE</option>
+                            <option value='GO'>GOLANG</option>
+                            <option value='BASH'>SCRIPT BASH</option>
+                            <option value='SHELL'>SHELL COMMANDS</option>
+                            <option value='PHP'>PHP +7</option>
+                            <option value='PYTHON'>PHP +7</option>
+                            <option value='RUST'>PHP +7</option>
+                            <option value='NJS'>NODE JS</option>
+                            <option value='C++'>C++</option>
+                            <option value='RDN'>REGLAS DE NEGOCIOS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="cmbCategoria" class="form-control selected" readonly disabled="disabled"
+                        [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="categoria" value="{{categoria}}" (change)="SeleccionarPrograma()">
+                            <option value="S">SELECCIONE</option>
+                            <option value="EXEC">EJECUCION</option>
+                            <option value="PROGRAM">TAREA PROGRAMADA</option>
+                            <option value="ESCALAR">ESCALABILIDAD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Valor de Retorno</label>
+                        <select class="form-control selected" [ngModelOptions]="{standalone: true}" readonly disabled="disabled"
+                            [(ngModel)]="retorno" value="{{retorno}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value="BOOL">LOGICO</option>
+                            <option value="STRING">CADENA</option>
+                            <option value="ARRAY">ARREGLO</option>
+                            <option value="OBJECT">OBJETO</option>
+                            <option value="NULL">NULL</option>
+                        </select>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Incluir una descripción:</label>
+                        <textarea class="form-control" rows="2" placeholder="Enter ..." readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="descripcion"
+                            value="{{descripcion}}"></textarea>
+                    </div>
+                </div>
+            </div>
+           <div class="row">
+                <!-- 
+                // .--------------- minuto (0-59)
+                // |  .------------ hora (0-23)
+                // |  |  .--------- día del mes (1-31)
+                // |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
+                // |  |  |  |  .--- día de la semana (0-6) (domingo=0 o 7) o sun,mon,tue,wed,thu,fri,sat (días en inglés)
+                // |  |  |  |  |
+                // *  *  *  *  *  comando a ejecutar
+                // */5 * * * *  se ejecuta cada 5 minutos.
+                -->
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Especificaci&oacute;n del tiempo</label>
+                        <div class="input-group">
+                            <input type="text"  class="form-control" placeholder="* * * * *" readonly
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="tiempo" value="{{tiempo}}">
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="col-md-7">
+                    <label>Estatus</label>
+                    <div class="input-group mb-3">
+                        <select class="form-control selected" [ngModelOptions]="{standalone: true}" 
+                            [(ngModel)]="estatus" value="{{estatus}}">
+                            <option value="S">SELECCIONE</option>
+                            <option value=0>INACTIVAR</option>
+                            <option value=1>ACTIVAR</option>
+                            <option value=2  disabled="disabled">EJECUTANDOSE</option>
+                            <option value=3  disabled="disabled">FINALIZADO</option>
+                            <option value=4  disabled="disabled">ZOMBIE</option>    
+                        </select>
+
+
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-success" (click)="EjecutarFnx()">
+                                <i class="fa fa-check"></i>&nbsp;&nbsp;Procesar
+                            </button>
+                            <button type="button" class="btn btn-secondary float-right" (click)="modal.dismiss('Cross click')">
+                                <i class="fa fa-close"></i>&nbsp;&nbsp;Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+           </div>
+        </form>
+    </div>
+    
+</ng-template>                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

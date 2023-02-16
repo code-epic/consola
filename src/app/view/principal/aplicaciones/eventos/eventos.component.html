@@ -1,0 +1,64 @@
+<div class="animated fadeIn" >
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                
+                <div class="card" style="width:100%; height: 280px; padding: 15px">
+                    <div class="card-body" style="margin-left: -10px; padding: 5px">
+                        <h3>Resumen</h3>
+                        <hr>
+                        <div class="chart-wrapper">
+                            <canvas baseChart class="chart"
+                            [datasets]="pieChartData"
+                            [labels]="pieChartLabels"
+                            [legend]="pieChartLegend"
+                            [chartType]="pieChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"
+                            ></canvas>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card" style="width:100%; height: 280px;">
+                    <div class="card-body">
+                        <h3>Alertas Pempranas</h3>
+                        <hr>
+                        <div class="chart-wrapper">
+                            <canvas baseChart class="chart"
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"
+                            ></canvas>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card" >
+                
+                <div class="card-body" style="height: 580px;max-height: 580px;">
+                    
+                    <button type="button" class="btn btn-transparent float-right p-0" aria-haspopup="true" aria-expanded="false" (click)="CargarEventos()">
+                        <i style='color:#770808; font-size: 18px; ' class="icon-calendar"></i>
+                    </button>
+                    <div class="text-value"><h3 >Alertas Tempranas</h3>
+                    <hr></div>
+                    <div class="list-group list-group-accent" id="divListaEventos" style="height: 500px; max-height: 500px; overflow-y: auto;">
+
+                           
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+       
+</div>

@@ -1,0 +1,149 @@
+
+ <div class="animated fadeIn" [ngStyle]="{'display':sectionConsultar}">
+    <section class="esb">        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-6 text-center">
+                                    <img class="card-img-top" 
+                                        src="../../assets/img/brand/roles.png" 
+                                        style="height: 100%; width: 60%"  
+                                    alt="Card image cap">
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <h1> Roles </h1>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                  
+                                  <form class="navbar-search">
+                                    <div class="form-group" [ngClass]="{ 'focused': focus === true }">
+                                      <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                          </div>
+                                        <input class="form-control" name="filterPost" autocomplete="off" placeholder="Buscar..." type="text" (focus)="focus = true"  (blur)="focus = false">
+                                          <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-sliders"></i></span>
+                                          </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </form>
+                                  
+                                </div>
+                                <div class="col-md-3">
+                      
+                                </div>
+
+                            </div>
+                            
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!--  -->
+                                    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" >
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">source</mat-icon>
+                                            &nbsp;CREAR
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <app-registrar-rol></app-registrar-rol>
+                                            </mat-accordion>                        
+                                        </mat-tab>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                            <mat-icon class="example-tab-icon">source</mat-icon>
+                                            &nbsp;LISTA
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align">
+                                                <mat-expansion-panel hideToggle *ngFor="let api of lst">
+                                                <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                        <b> {{ api.funcion }} </b>
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                        <div class="col-md-4"> {{ api.metodo }} </div>
+                                                        <div class="col-md-3"> {{ api.categoria }} </div>
+                                                        <div class="col-md-3"> {{ api.driver }} </div>
+                                                        <div class="col-md-2"><span class="float-right badge me-1 bg-primary">{{ api.version }}</span></div>
+                                                    </mat-panel-description>
+                                                </mat-expansion-panel-header>
+                                                <mat-divider></mat-divider>
+                                                <br>
+                                                <table class="table table-striped border datatable">
+                                                    <thead>
+                                                      <tr>
+                                                        <th>Hash</th>
+                                                        <th>Funcionalidad</th>
+                                                        <th>Tipo</th>
+                                                        <th>Cache</th>
+                                                        <th>Log</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="align-middle">
+                                                          <td>{{ api.id }}</td>
+                                                          <td>{{ api.funcionalidad }}</td>
+                                                          <td>{{ api.tipo }} </td>
+                                                          <td>{{ api.cache }}</td>
+                                                          <td>{{ api.logs }}</td>
+                                                        </tr>
+                                                        <tr class="align-middle">
+                                                            <td colspan="5">
+                                                                {{ api.descripcion }}  
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                
+                                                <p class="card-text text-justify">
+                                              
+                                                   <br>
+                                                   
+                                                    <code>
+                                                        {{ api.query }}
+                                                    </code>
+                                                </p>
+                                                <mat-action-row>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-sm btn-primary " type="button">Promover</button>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <button class="btn btn-sm btn-warning" type="button">Modificar</button>
+                                                        <button class="btn btn-sm btn-info" type="button" (click)="activarFormulario( frmSQL, api )">Probar</button>
+                                                    </div>
+                                                    
+                                                </mat-action-row>
+                                                </mat-expansion-panel>
+                                            </mat-accordion>
+                                            <!-- <mat-paginator [length]="lengthOfi"
+                                                (page)="pageChangeEvent($event)"
+                                                [pageSize]="pageSizeOfi"
+                                                [pageSizeOptions]="pageSizeOptions"
+                                                (page)="pageEvent = $event"
+                                                aria-label="Seleccionar">
+                                            </mat-paginator>                           -->
+                                        </mat-tab>
+                                    </mat-tab-group>                              
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ </div>
