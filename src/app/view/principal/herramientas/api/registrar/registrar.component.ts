@@ -800,8 +800,9 @@ export class RegistrarComponent implements OnInit, OnDestroy {
 
   onMetodo(ev) {
     this.lstDml = []
-
+    
     this.Dml.forEach(e => {
+      console.log(e.tipo, this.xAPI.metodo)
       if (e.tipo == this.xAPI.metodo) {
         this.lstDml.push(e)
       }

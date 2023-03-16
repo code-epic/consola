@@ -133,9 +133,9 @@ export class PrincipalComponent implements OnInit {
         this.ws.lst$.emit([])
         this.ws.estatusText$.emit('se intentara conectar nuevamente')
 
-        timer(10000).subscribe(e => {
-          this.conectar()
-        })
+        // timer(10000).subscribe(e => {
+        //   this.conectar()
+        // })
 
       },
       () => console.log('complete')

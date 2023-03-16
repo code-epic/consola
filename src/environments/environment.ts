@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   Url: 'https://localhost',
-  API: '/devel/api/',
+  API: '/v1/api/',
   Hash: ':c521f27fb1b3311d686d511b668e5bd4'
 };

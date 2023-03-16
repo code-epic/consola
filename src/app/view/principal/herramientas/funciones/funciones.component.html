@@ -12,7 +12,6 @@ Titulo: Panel de Control: APICORE
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body" style="padding:0px;height:100%">
-                        <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
                         <div class="text-value"  style="padding:10px;height:100%"><h3 >Modelo SAF ( Servidor de Aplicaciones Para Funciones ) </h3>
                             <hr>
                         </div>
@@ -26,6 +25,8 @@ Titulo: Panel de Control: APICORE
                                 </ng-template>
                                 
                                 <div class="container">
+                                    <ngx-ui-loader [loaderId]="'loader-c'"></ngx-ui-loader>
+
                                     <br>
                                  
                                     <!-- <mat-form-field appearance="fill">
@@ -50,7 +51,7 @@ Titulo: Panel de Control: APICORE
                                                      {{ e.descripcion }}
                                                 </div>
                                                 <div class="col-md-1 texto-lista text-right">
-                                                    {{ obtenerEstatus(e.tipo) }}
+                                                    {{ obtenerEstatus(e.estatus) }}
                                                 </div>
         
         
@@ -98,9 +99,6 @@ Titulo: Panel de Control: APICORE
 
 
 
-
-
-
 <ng-template #frmSQL let-modal>
     <div class="modal-body">
         <form #form="ngForm">
@@ -128,7 +126,6 @@ Titulo: Panel de Control: APICORE
                         </select>
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Nombre</label>
@@ -142,10 +139,7 @@ Titulo: Panel de Control: APICORE
                         <input type="text" id="txtVersion" class="form-control" placeholder="Enter ..." readonly
                             [ngModelOptions]="{standalone: true}" [(ngModel)]="version" value="{{version}}">
                     </div>
-                </div>
-                
-                
-
+                </div>        
             </div>
 
 
@@ -157,13 +151,13 @@ Titulo: Panel de Control: APICORE
                         [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="lenguaje" value="{{lenguaje}}" (change)="cambiarModo()">
                             <option value="S">SELECCIONE</option>
-                            <option value='GO'>GOLANG</option>
+                            <option value='PHP'>PHP +7</option>
+                            <option value='PYTHON'>PYTHON</option>
+                            <option value='RUST'>RUST</option>
                             <option value='BASH'>SCRIPT BASH</option>
                             <option value='SHELL'>SHELL COMMANDS</option>
-                            <option value='PHP'>PHP +7</option>
-                            <option value='PYTHON'>PHP +7</option>
-                            <option value='RUST'>PHP +7</option>
                             <option value='NJS'>NODE JS</option>
+                            <option value='GO'>GOLANG</option>
                             <option value='C++'>C++</option>
                             <option value='RDN'>REGLAS DE NEGOCIOS</option>
                         </select>
@@ -192,11 +186,12 @@ Titulo: Panel de Control: APICORE
                             <option value="STRING">CADENA</option>
                             <option value="ARRAY">ARREGLO</option>
                             <option value="OBJECT">OBJETO</option>
+                            <option value="FILE">ARCHIVO</option>
+                            <option value="DBASE">BASE DE DATOS</option>
                             <option value="NULL">NULL</option>
                         </select>
                     </div>
                 </div>
-               
             </div>
             <div class="row">
                 <div class="col-md-12">

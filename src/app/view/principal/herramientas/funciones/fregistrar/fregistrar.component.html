@@ -67,13 +67,13 @@
                         <select id="cmbLenguaje" class="form-control selected" [ngModelOptions]="{standalone: true}"
                             [(ngModel)]="Fnx.lenguaje" value="{{Fnx.lenguaje}}" (change)="cambiarModo()">
                             <option value="S">SELECCIONE</option>
-                            <option value='GO'>GOLANG</option>
+                            <option value='PHP'>PHP +7</option>
+                            <option value='PYTHON'>PYTHON</option>
+                            <option value='RUST'>RUST</option>
                             <option value='BASH'>SCRIPT BASH</option>
                             <option value='SHELL'>SHELL COMMANDS</option>
-                            <option value='PHP'>PHP +7</option>
-                            <option value='PYTHON'>PHP +7</option>
-                            <option value='RUST'>PHP +7</option>
                             <option value='NJS'>NODE JS</option>
+                            <option value='GO'>GOLANG</option>
                             <option value='C++'>C++</option>
                             <option value='RDN'>REGLAS DE NEGOCIOS</option>
                         </select>
@@ -101,6 +101,7 @@
                             <option value="STRING">CADENA</option>
                             <option value="ARRAY">ARREGLO</option>
                             <option value="OBJECT">OBJETO</option>
+                            <option value="FILE">ARCHIVO</option>
                             <option value="NULL">NULL</option>
                         </select>
                     </div>

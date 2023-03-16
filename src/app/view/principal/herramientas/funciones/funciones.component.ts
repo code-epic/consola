@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 declare var $: any;
 import { FregistrarComponent } from './fregistrar/fregistrar.component'
 import { IFunciones } from '../../../../service/herramientas/funciones.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-funciones',
@@ -65,7 +66,7 @@ export class FuncionesComponent implements OnInit {
   constructor(private apiService: ApiService,
     private ruta: Router,
     private modalService: NgbModal,
-    private toastrService: ToastrService) {
+    private ngxService: NgxUiLoaderService) {
 
 
   }
@@ -82,6 +83,7 @@ export class FuncionesComponent implements OnInit {
     // console.log(this.active)
     if (!this.active) {
       this.Limpiar()
+      this.Listar(0)
       const base = btoa(JSON.stringify(this.Fnx))
       this.Fnx = base
     } else {
@@ -119,12 +121,13 @@ export class FuncionesComponent implements OnInit {
   }
 
   Listar(e) {
+    this.ngxService.startLoader('loader-c')
     this.xAPI.funcion = "SSB_LFunciones";
     this.xAPI.parametros = '';
 
     this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
-        console.log(data)
+        this.ngxService.stopLoader('loader-c')
         this.lstFnx = data
       },
       (error) => {
@@ -185,7 +188,7 @@ export class FuncionesComponent implements OnInit {
     let cadena = 'INACTIVO'
     switch (estatus) {
       case 0:
-        cadena = '<font class="texto-green">INACTIVO</font>'
+        cadena = 'INACTIVO'
         break;
       case 1:
         cadena = 'ACTIVO'
