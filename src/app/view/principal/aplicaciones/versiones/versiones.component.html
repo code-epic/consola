@@ -71,16 +71,16 @@ Titulo: Panel de Control: APICORE
 
                                         <div class="col-md-2 text-right">
 
-                                            <button mat-icon-button aria-label="Editar"
+                                            <button mat-icon-button aria-label="Editar" *ngIf="e.estatus=='0'"
                                                 (click)="clonar( e.identificador )" #tooltip="matTooltip"
                                                 matTooltip="Clonar">
                                                 <mat-icon class="texto-gray">get_app</mat-icon>
                                             </button>
-                                            <!-- <button mat-icon-button aria-label="Actualizar"
-                                                (click)="actualizar(adjuntar, e.identificador)"  #tooltip="matTooltip" matTooltip="Actualizar">
+                                            <button mat-icon-button aria-label="Actualizar" *ngIf="e.estatus=='1'"
+                                                (click)="actualizar(e)"  #tooltip="matTooltip" matTooltip="Actualizar">
                                                 <mat-icon class="texto-gray">refresh</mat-icon>
                                             </button>
-                                            <button mat-icon-button aria-label="Publicado"  #tooltip="matTooltip" matTooltip="Publicado">
+                                            <!-- <button mat-icon-button aria-label="Publicado"  #tooltip="matTooltip" matTooltip="Publicado">
                                                 <mat-icon class="texto-gray">public</mat-icon>
                                             </button> -->
 

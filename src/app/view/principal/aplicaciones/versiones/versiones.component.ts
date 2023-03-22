@@ -10,38 +10,83 @@ export class VersionesComponent implements OnInit {
 
   public lstApp = []
 
-  public xAPI : IAPICore = {
-    funcion       : '',
-    parametros    : '',
-    valores       : null,
+  public xAPI: IAPICore = {
+    funcion: '',
+    parametros: '',
+    valores: null,
   }
 
 
-  constructor(private apiService : ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-      this.lstAplicaciones()
+    this.lstAplicaciones()
   }
 
-  clonar(){}
 
-  actualizar(){}
+  actualizar(e : any) {
+    if (e.nombre == "Panel") {
+      this.actualizarPanel()
+      return false;
+    }
 
-  async lstAplicaciones(){
+
+  }
+
+  async lstAplicaciones() {
     this.xAPI.funcion = "LstAplicaciones";
     this.xAPI.valores = null;
 
     await this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
 
-        this.lstApp  = data.Cuerpo
-        // data.Cuerpo.forEach(e => {          
-         
-        // });             
+        this.lstApp = data.Cuerpo
+        console.log(this.lstApp)
       },
       (error) => {
         console.log(error)
       }
     )
   }
+
+
+
+
+  //actualizarPanel 
+  actualizarPanel() {
+    let fnx = {
+      "funcion": "fnx.UpdateOption",
+      "option": "consola",
+    }
+    this.apiService.ExecFnx(fnx).subscribe(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+  }
+
+
+  //Clonar aplicaciones
+  clonar() {
+
+    let fnx = {
+      "funcion": "fnx.UpdateOption",
+      "option": "consola",
+    }
+    this.apiService.ExecFnx(fnx).subscribe(
+      (data) => {
+        console.log(data)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+
+  }
+
+
+
 }
