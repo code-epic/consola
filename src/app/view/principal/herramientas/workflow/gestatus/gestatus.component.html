@@ -1,0 +1,75 @@
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Estado Origen</label>
+        <select class="form-control selected" style="display: flex; justify-content: center;" 
+        [(ngModel)]="estado" value="{{estado}}" (change)="lstEstatus()">
+          <option value="-">SELECCIONE</option>
+          <option *ngFor="let e of rowEstado; let i = index" value="{{ e.id }}">{{e.nomb | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Enter ..." [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="wkfEstatus.nombre" value="{{wkfEstatus.nombre}}">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label>Descripcion</label>
+
+      <input style="font-size:14px;" type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="wkfEstatus.descripcion" value="{{wkfEstatus.descripcion}}">
+
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Orden</label>
+        <div class="input-group mb-3">
+          <select class="form-control selected" style="display: flex; justify-content: center;" 
+        [(ngModel)]="orden" value="{{orden}}">
+          <option value="-">SELECCIONE</option>
+          <option *ngFor="let e of lstOrden" value="{{ e }}">{{e}}</option>
+        </select>
+          <div class="input-group-prepend">
+            <button type="button" mat-raised-button color="accent" (click)="Guardar()">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i> &nbsp; Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <label>Lista de Estados</label>
+      <div style="width: 100%; height: 300px; overflow-y: scroll;">
+        <table class="table" style="width: 98%;">
+          <thead>
+            <tr>
+              <th scope="col"># Orden</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            <tr *ngFor="let e of rowEstatus">
+              <th scope="row">{{ e.idc }}</th>
+              <td>{{ e.nomb }}</td>
+              <td>{{ e.obse }}</td>
+              <th scope="row">{{ e.ide }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

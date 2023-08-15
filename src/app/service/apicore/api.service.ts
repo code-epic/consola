@@ -53,6 +53,23 @@ export interface ObjectoGenerico {
   obse: string
 }
 
+export interface WkfEstado {
+  wkf: number,
+  nombre: string,
+  descripcion: string
+  estatus: number,
+}
+
+export interface WkfEstatus {
+  estado : number
+  nombre: string,
+  descripcion: string
+  estatus: number,
+  orden: number
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -60,7 +77,7 @@ export class ApiService {
   //Dirección Get para servicios en la página WEB
   URL = environment.API;
 
-  hash = ':c521f27fb1b3311d686d511b668e5bd4'
+  public hash = ':c521f27fb1b3311d686d511b668e5bd4'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -94,9 +111,7 @@ export class ApiService {
   //Ejecutar Api generales
   Ejecutar(xAPI: IAPICore): Observable<any> {
     var url = this.URL + "crud" + this.hash;
-    // if( xAPI.valores  != undefined ){
-    //     xAPI.valores = JSON.parse(xAPI.parametros);
-    // } 
+    console.log(url)
     return this.http.post<any>(url, xAPI, this.httpOptions);
   }
 

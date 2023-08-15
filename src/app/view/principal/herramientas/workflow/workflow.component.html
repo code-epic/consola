@@ -28,25 +28,32 @@
 
                                 
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
 
-                                    <!--  -->
-                                    
-                                    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs" >
+                            <div class="row">
+                                <div class="col-md-12" >
+                                    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs"  >
                                         <mat-tab>
                                             <ng-template mat-tab-label>
-                                            <mat-icon class="example-tab-icon">tips_and_updates</mat-icon>
-                                            &nbsp;&nbsp;ESTADOS
+                                                <mat-icon class="example-tab-icon">tips_and_updates</mat-icon>
+                                                &nbsp;&nbsp;ESTADOS
                                             </ng-template>
-                                            <mat-accordion class="example-headers-align">
+                                            <mat-accordion class="example-headers-align" >
                                                 <app-estados></app-estados>
+                                            </mat-accordion>                        
+                                        </mat-tab>
+                                        <mat-tab>
+                                            <ng-template mat-tab-label>
+                                                <mat-icon class="example-tab-icon">grading</mat-icon>
+                                                &nbsp;&nbsp;ESTATUS
+                                            </ng-template>
+                                            <mat-accordion class="example-headers-align" >
+                                                <app-gestatus></app-gestatus>
                                             </mat-accordion>                        
                                         </mat-tab>
                                        <mat-tab>
                                             <ng-template mat-tab-label>
-                                            <mat-icon class="example-tab-icon">table_view</mat-icon>
-                                            &nbsp;&nbsp;TRANSICIONES
+                                                <mat-icon class="example-tab-icon">table_view</mat-icon>
+                                                &nbsp;&nbsp;TRANSICIONES
                                             </ng-template> 
                                             <mat-accordion class="example-headers-align">
                                                 <app-transiciones></app-transiciones>
@@ -54,14 +61,15 @@
                                         </mat-tab>
                                         <mat-tab>
                                             <ng-template mat-tab-label>
-                                            <mat-icon class="example-tab-icon">extension</mat-icon>
-                                            &nbsp;&nbsp;DEFINIER RED
+                                                <mat-icon class="example-tab-icon">extension</mat-icon>
+                                                &nbsp;&nbsp;DEFINIER RED
                                             </ng-template> 
                                             <mat-accordion class="example-headers-align">
                                                 <app-red></app-red>
                                             </mat-accordion>                        
                                         </mat-tab>
-                                    </mat-tab-group>                              
+                                    </mat-tab-group>     
+
                                 </div>
                             </div>
 

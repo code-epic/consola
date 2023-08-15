@@ -274,18 +274,17 @@ export class RegistrarComponent implements OnInit, OnDestroy {
       return
     }
 
-    if (this.campo.name == "" || this.alias == "" || this.tipodato == "S") {
+    if (this.campo.name == "" || this.tipodato == "S") {
       this.toastrService.warning(
         'Debe registrar todos los campos requeridos; nombre, alias, tipo de dato',
         `Sandra Server`
       );
       return
     }
-
     var e = {
       campo: this.campo.name,
       defecto: this.defecto,
-      alias: this.alias,
+      alias: this.alias == "" ? this.campo.name: this.alias ,
       tipo: this.tipodato
     }
     this.IEntradas[this.xdml].push(e)

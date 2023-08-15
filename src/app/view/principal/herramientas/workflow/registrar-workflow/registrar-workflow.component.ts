@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService, IAPICore } from '../../../../../service/apicore/api.service';
 import { Wdefinicion, WListaEstado, WorkflowService } from '../../../../../service/workflow/workflow.service';
+import { ComunicacionesService } from '../../../../../service/comunicaciones/comunicaciones.service';
 
 
 @Component({
@@ -11,26 +12,21 @@ import { Wdefinicion, WListaEstado, WorkflowService } from '../../../../../servi
 export class RegistrarWorkflowComponent implements OnInit {
 
 
+
   public xAPI : IAPICore = {
     funcion: '',
-    relacional: false,
-    concurrencia : false,
-    retorna : false,
-    migrar : false,
     parametros: '',
-    modulo : '',
-    valores : {},
-    logs : false,
-    cache: 0,
-    estatus: false
-  };
+    valores : {}
+  }
 
   lstApps = []
   dataModulo = []
-  aplicacion : string = '0'
+  aplicacion : string = '-'
 
   public Definicion = []
-  xmodulo :  string = '0'
+  xmodulo :  string = '-'
+  xdrivers: string = '-'
+  drivers: any
 
   
   nombre  :  string = ''
@@ -40,27 +36,23 @@ export class RegistrarWorkflowComponent implements OnInit {
   isButtonVisibleSalvar : boolean = false
   isButtonVisibleUpdate : boolean = false
 
-  public xDefinicion : Wdefinicion = {
-    idap: 0,
-    idmo: 0,
-    nomb: '',
-    obse: '',
-    fech: Date.now()
-  }
 
-  constructor(private apiService : ApiService,
-     private wkf : WorkflowService) { }
+  constructor(
+    private apiService : ApiService,
+    private comunicacionesService: ComunicacionesService,
+    private wkf : WorkflowService) { }
 
   ngOnInit(): void {
     this.lstAplicaciones()    
+    this.CargarDrivers()
   }
 
   async lstAplicaciones(){
-    this.xAPI.funcion = "LstAplicaciones";
+    this.xAPI.funcion = "SEC_CAplicaciones";
     this.xAPI.valores = null;
     await this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
-        // console.info(data)
+      
         this.lstApps = data.Cuerpo
       },
       (error) => {
@@ -69,41 +61,60 @@ export class RegistrarWorkflowComponent implements OnInit {
     )
   }
 
-  selModulo() : void {
-    this.xAPI.funcion = "LstModulos";
-    this.xAPI.parametros = this.aplicacion;
-    this.dataModulo = [];
-    this.apiService.Ejecutar(this.xAPI).subscribe(
+  async CargarDrivers() {
+    this.xAPI.funcion = "LESBDrivers";
+
+    await this.comunicacionesService.ListarConexiones().subscribe(
       (data) => {
-        data.Cuerpo.forEach(e => {          
-          this.dataModulo.push({ id: e.id, name: e.nomb  })
-        });             
+        
+        this.drivers = data
+        this.apiService.Ejecutar(this.xAPI).subscribe(
+          (data) => {
+
+            this.drivers = data.filter(e => {
+              
+               return e.driver.indexOf('mysql') == 0  
+              
+            });
+          },
+          (error) => { console.log(error) }
+        )
       },
-      (error) => {
-        console.log(error)
-      }
+      (error) => { console.log(error) }
     )
+
   }
 
   consultarRed(){
-    this.xAPI.funcion = 'Wk_SDefinicion'
-    this.xAPI.parametros = this.aplicacion +","+ this.xmodulo
-    this.wkf.msjText$.emit( this.xmodulo)
+    this.xAPI.funcion = 'WKF_CDefinicion'
+    let app = this.aplicacion.split('|')
+    this.xAPI.parametros = app[0]
+    // this.wkf.msjText$.emit( this.aplicacion)
+    this.apiService.hash =  ':' + app[1]
     this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
+        console.log(data)
         this.isBtnSalvar = false
-        if (data.Cuerpo == undefined) return
-        data.Cuerpo.forEach(e => {         
-          if (e != ' ') {
-            this.wkf.msjText$.emit( e.id )
-            this.isBtnSalvar = false
-            this.isDisabledInput = true
-            this.isButtonVisibleSalvar = true
-            this.isButtonVisibleUpdate = true
-            this.nombre = e.nombre
-            this.descripcion = e.observacion
-          } 
-      });
+
+        if (data.Cuerpo != undefined ) {
+          console.log(data.Cuerpo.length)
+          if (data.Cuerpo.length == 0 ) return
+
+          this.wkf.msjText$.emit( data.Cuerpo[0].wkf )
+          data.Cuerpo.forEach(e => {         
+            if (e != ' ') {
+              
+              this.isBtnSalvar = false
+              this.isDisabledInput = true
+              this.isButtonVisibleSalvar = true
+              this.isButtonVisibleUpdate = true
+              this.nombre = e.nomb
+              this.xdrivers = e.driver
+              this.descripcion = e.obse
+            } 
+          
+          })
+        }
       },
       (err) => {
         console.error(err)
@@ -118,23 +129,27 @@ export class RegistrarWorkflowComponent implements OnInit {
     this.isButtonVisibleUpdate = false
     this.nombre = ''
     this.descripcion = ''
-    this.aplicacion = ''
-    this.xmodulo = ''
+    this.aplicacion = '-'
+    this.xmodulo = '-'
+    this.xdrivers = '-'
+    this.wkf.msjText$.emit( 'CLEAN' )
   }
 
   salvar(){
     var ObjSalvar = {
-      'idap' : this.aplicacion,
-      'idmo' : this.xmodulo,
-      'nomb' : this.nombre,
-      'obse' : this.descripcion,
+      'aplicacion' : this.aplicacion,
+      'modulo' : this.xmodulo,
+      'nombre' : this.nombre,
+      'driver' : this.xdrivers,
+      'descripcion' : this.descripcion,
     }
     this.Definicion.push(ObjSalvar)
-    this.xAPI.funcion = 'Wk_IDefinicion'
+    this.xAPI.funcion = 'WKF_IDefinicion'
     this.xAPI.valores = JSON.stringify(ObjSalvar)
     this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
         console.log(data.msj)
+        this.apiService.Mensaje('Proceso exitoso se ha ' + data.msj, 'Felicitaciones', 'success', 'wkf')
       },
       (err) => {
         console.error(err)

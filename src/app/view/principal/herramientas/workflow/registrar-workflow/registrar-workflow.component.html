@@ -2,27 +2,43 @@
 <!-- <form #rolPrivilegios="ngForm" (ngSubmit)="onClickSubmit(rolPrivilegios)"> -->
 <form  class="normal-form">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <label>Aplicacion</label>
                 <select id="cmbAplicacion" class="form-control selected" [disabled]="isDisabledInput"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="aplicacion"  value ="{{aplicacion}}"
-                    style="display: flex; justify-content: center;" (change)="selModulo()">
-                    <option value="0">SELECCIONE</option>
-                    <option *ngFor="let xapp of lstApps" value="{{ xapp.id }}">{{xapp.nomb}} : {{xapp.vers}}</option>
+                    [ngModelOptions]="{standalone: true}"
+                     [(ngModel)]="aplicacion"  value ="{{aplicacion}}"
+                    style="display: flex; justify-content: center;">
+                    <option value="-">SELECCIONE</option>
+                    <option *ngFor="let xapp of lstApps" value="{{ xapp.identificador + '|' + xapp.llave }}">{{xapp.nombre}} : {{xapp.version}}</option>
                 </select>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
-                <label>Modulo</label>
+                <label>Arquitectura</label>
                     <select id="cmbModulo" class="form-control selected" [disabled]="isDisabledInput"
                         [ngModelOptions]="{standalone: true}"
                         [name]="xmodulo"
-                        (change)="consultarRed()"
-                        [(ngModel)]="xmodulo">   
-                    <option value="0">SELECCIONE</option>
-                    <option  *ngFor="let item of dataModulo" value="{{item.id}}">{{item.name}}</option> 
+                        (change)="consultarRed()" 
+                        [(ngModel)]="xmodulo">
+                        <option value="-">SELECCIONE</option>
+                        <option value="1">DOCUMENTOS</option>
+                        <option value="0">SISTEMA</option>
+                        <option value="2">SERVIDORES</option>
+                    </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Driver</label>
+                    <select id="cmbModulo" class="form-control selected" [disabled]="isDisabledInput"
+                        [ngModelOptions]="{standalone: true}"
+                        [name]="xdrivers"
+                        [(ngModel)]="xdrivers">
+                        <option value="-">SELECCIONE</option>
+                        <option *ngFor="let mdl of drivers" value="{{mdl.id}}" >{{ mdl.descripcion }} ( {{mdl.basedatos}} ) </option> 
+
                     </select>
             </div>
         </div>

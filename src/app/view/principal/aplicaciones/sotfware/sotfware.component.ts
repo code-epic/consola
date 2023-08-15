@@ -77,7 +77,10 @@ export class SotfwareComponent implements OnInit {
     tipo: 0,
     usuario: '',
     creador: '',
-    version: '0.0.1'
+    version: '0.0.1',
+    llave: '',
+    estatus : 0,
+    
   }
 
   public _user : any
@@ -150,9 +153,9 @@ export class SotfwareComponent implements OnInit {
     )
   }
   async lstAplicaciones(){
-    this.xAPI.funcion = "LstAplicaciones";
+    this.xAPI.funcion = "SEC_CAplicaciones";
     this.xAPI.valores = null;
-
+   
     await this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
         data.Cuerpo.forEach(e => {          
@@ -187,7 +190,9 @@ export class SotfwareComponent implements OnInit {
       tipo: 0,
       usuario: '',
       creador: '',
-      version: '0.0.1'
+      version: '0.0.1',
+      llave: '',
+      estatus: 0
     }
   }
 
@@ -205,7 +210,7 @@ export class SotfwareComponent implements OnInit {
       (data) => {
         var xapp : SSB_IAplicacion
         xapp = data.Cuerpo[0]
-        console.log(xapp)
+        //console.log(xapp)
         this.iApp = xapp;
 
       },
@@ -218,6 +223,7 @@ export class SotfwareComponent implements OnInit {
   async guardarAplicacion(){
 
     this.xAPI.funcion = "SSB_IAplicacion" 
+    this.iApp.llave = this.iApp.nombre + '.sse'
     this.xAPI.valores = JSON.stringify(this.iApp) 
    
     if(this.iApp.identificador != 0) this.xAPI.funcion = "SSB_UAplicacion"
@@ -253,7 +259,7 @@ export class SotfwareComponent implements OnInit {
 
     await this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {     
-        console.log(data)   
+        console.log(data, 'adicional')   
         data.Cuerpo.forEach(v => {
           this.rowData.push({
             nombre: v.nomb,

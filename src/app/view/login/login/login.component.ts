@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IToken, LoginService } from '../../../service/seguridad/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -31,6 +32,9 @@ export class LoginComponent implements OnInit{
   public itk: IToken;
   private index: number = 0;
 
+  version = "1.0.0"
+  fecha = ""
+
   constructor(private router: Router, private loginService: LoginService, private toastrService: ToastrService){
     if (sessionStorage.getItem("token") != undefined ){
       this.router.navigate(['principal']);
@@ -38,7 +42,8 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit() {
-
+    this.version = environment.version
+    this.fecha = environment.fecha
   }
 
 

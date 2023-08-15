@@ -66,6 +66,7 @@ import { TransicionesComponent } from './herramientas/workflow/transiciones/tran
 import { RedComponent } from './herramientas/workflow/red/red.component';
 import { ActualizarComponent } from './opciones/actualizar/actualizar.component';
 import { VersionesComponent } from './aplicaciones/versiones/versiones.component';
+import { GestatusComponent } from './herramientas/workflow/gestatus/gestatus.component';
 
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -135,7 +136,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     TransicionesComponent,
     RedComponent,
     ActualizarComponent,
-    VersionesComponent
+    VersionesComponent,
+    GestatusComponent
   
   ],
   imports: [
