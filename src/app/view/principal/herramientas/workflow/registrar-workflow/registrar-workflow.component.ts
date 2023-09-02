@@ -137,7 +137,7 @@ export class RegistrarWorkflowComponent implements OnInit {
 
   salvar(){
     var ObjSalvar = {
-      'aplicacion' : this.aplicacion,
+      'aplicacion' : this.aplicacion.split('|')[0],
       'modulo' : this.xmodulo,
       'nombre' : this.nombre,
       'driver' : this.xdrivers,

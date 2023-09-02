@@ -249,7 +249,7 @@ export class ApiComponent implements OnInit {
     this.data = item
 
     if (item.entradas != undefined) {
-      this.codeTypeJs = this.apiService.GenerarCodigo(item.entradas, item.funcion, this.xentorno)
+      this.codeTypeJs = this.apiService.GenerarCodigoDart(item.entradas, item.funcion, this.xentorno)
       this.clickRefresh(0)
     }
   }

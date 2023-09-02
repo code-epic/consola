@@ -39,6 +39,7 @@ export class EstadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.wkf.msjText$.subscribe(e => {
+      console.info(e)
       if ( e == 'CLEAN') this.rowEstado = []
       this.lstEstados(e)
       this.xidW = parseInt(e)
@@ -50,6 +51,7 @@ export class EstadosComponent implements OnInit {
     this.xAPI.funcion = 'WKF_CEstados'
     this.xAPI.parametros = idw
     this.xAPI.valores = {}
+    console.log(this.xAPI)
     this.apiService.Ejecutar(this.xAPI).subscribe(
       (data) => {
         this.rowEstado = data.Cuerpo
