@@ -7,7 +7,7 @@
   [asideMenuToggler]="'lg'">
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
-      <a class="nav-link" href="#">Sandra Server Broglie</a>
+      <a class="nav-link" href="#">Sandra Server {{version}}</a>
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto">
@@ -57,18 +57,18 @@
         </div>
       </li>
     </cui-breadcrumb>
-    <!-- deprecation warning for 'app-breadcrumb' -->
-    <!--<ol class="breadcrumb">-->
-      <!--<app-breadcrumb></app-breadcrumb>-->
-      <!--&lt;!&ndash; Breadcrumb Menu&ndash;&gt;-->
-      <!--<li class="breadcrumb-menu d-md-down-none">-->
-        <!--<div class="btn-group" role="group" aria-label="Button group with nested dropdown">-->
-          <!--<a class="btn" href="#"><i class="icon-speech"></i></a>-->
-          <!--<a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>-->
-          <!--<a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>-->
-        <!--</div>-->
-      <!--</li>-->
-    <!--</ol>-->
+ 
+    <!-- <ol class="breadcrumb">
+      <app-breadcrumb></app-breadcrumb>
+      &lt;!&ndash; Breadcrumb Menu&ndash;&gt;
+      <li class="breadcrumb-menu d-md-down-none">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+          <a class="btn" href="#"><i class="icon-speech"></i></a>
+          <a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+          <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+        </div>
+      </li>
+    </ol> -->
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
@@ -173,56 +173,13 @@
             <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
           </div>
           <hr>
-          <div class="message">
-            <div class="py-3 pb-5 mr-3 float-left">
-              <div class="avatar">
-                <img src="" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-1">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
-          <hr>
-          <div class="message">
-            <div class="py-3 pb-5 mr-3 float-left">
-              <div class="avatar">
-                <img src="" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-1">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
-          <hr>
-          <div class="message">
-            <div class="py-3 pb-5 mr-3 float-left">
-              <div class="avatar">
-                <img src="" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-1">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
+          
         </div>
       </tab>
       <tab>
         <ng-template tabHeading><i class="icon-settings"></i></ng-template>
         <div class="p-3">
-          <h6>Settings</h6>
+          <h4>Settings</h4>
           <div class="aside-options">
             <div class="clearfix mt-4">
               <small><b>Option 1</b></small>
@@ -267,7 +224,7 @@
             </div>
           </div>
           <hr>
-          <h6>System Utilization</h6>
+          <h4>System Utilization</h4>
           <div class="text-uppercase mb-1 mt-4"><small><b>CPU Usage</b></small></div>
           <div class="progress progress-xs">
             <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

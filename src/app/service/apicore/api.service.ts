@@ -106,6 +106,13 @@ export class ApiService {
     return this.http.post<any>(url, xAPI, this.httpOptions);
   }
 
+  //Ejecutar Api generales
+  ExecFnx(fnx : any): Observable<any> {
+    var url = this.URL + "fnx";
+    return this.http.post<any>(url, fnx, this.httpOptions);
+  }
+
+
   //ListarModulos
   ListarModulos(): Observable<any> {
     var url = this.URL + "lmodulos";
